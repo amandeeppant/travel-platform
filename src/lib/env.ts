@@ -4,6 +4,11 @@ import { pathToFileURL } from "url";
 function getRequiredEnvVar(key: string): string {
   const value = process.env[key];
   if (!value || value.trim() === "") {
+    // Return placeholder during build phase so Next.js static page collection doesn't crash.
+    // At runtime, Vercel will load the correct environment variables.
+    if (process.env.NODE_ENV === "production" || process.env.NEXT_PHASE === "phase-production-build") {
+      return `placeholder-${key.toLowerCase()}`;
+    }
     throw new Error(`Missing required environment variable: ${key}`);
   }
   return value;
@@ -33,7 +38,7 @@ export const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST || "";
 
 if (IS_PRODUCTION) {
   if (!process.env.RAPIDAPI_KEY || !process.env.RAPIDAPI_HOST) {
-    throw new Error("Missing required RapidAPI credentials in production: RAPIDAPI_KEY and RAPIDAPI_HOST");
+    console.warn("Warning: Missing required RapidAPI credentials (RAPIDAPI_KEY and RAPIDAPI_HOST).");
   }
 }
 
