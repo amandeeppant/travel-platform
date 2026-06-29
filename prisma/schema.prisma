@@ -1,0 +1,173 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(cuid())
+  name      String
+  email     String      @unique
+  phone     String
+  portal    String
+  org       String?
+  password  String
+  createdAt DateTime    @default(now())
+  bookings  Booking[]
+  hotels    Hotel[]
+}
+
+model Hotel {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  location    String
+  description String?
+  category    String?
+  rating      Float    @default(5.0)
+  nightlyRate Int
+  currency    String   @default("INR")
+  available   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  // Owner relationship
+  ownerId     String?
+  owner       User?    @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+
+  // Profile details
+  propertyType String?
+  totalRooms   Int?
+  checkInTime  String?
+  checkOutTime String?
+  contactEmail String?
+  contactPhone String?
+  address      String?
+  amenities    String[]
+
+  // KYC Verification
+  gstNumber          String?
+  panNumber          String?
+  legalEntityName    String?
+  entityType         String?
+  fssaiLicense       String?
+  tradeLicense       String?
+  verificationStatus String @default("pending") // pending, verified, processing
+
+  // Bank details
+  bankAccountName        String?
+  bankAccountNumber      String?
+  bankIfscCode           String?
+  bankAccountType        String?
+  bankName               String?
+  bankBranchName         String?
+  bankVerificationStatus String @default("pending") // pending, verified
+
+  // Location
+  latitude  Float?
+  longitude Float?
+
+  // Rooms
+  rooms     Room[]
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  roomNumber  String
+  type        String
+  floor       Int
+  capacity    Int
+  price       Int
+  status      String   @default("Available") // Available, Occupied, Maintenance, Blocked
+  occupancy   Int      @default(0)
+  maintenance Boolean  @default(false)
+  
+  hotelId     String
+  hotel       Hotel    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Flight {
+  id           String   @id @default(cuid())
+  airline      String
+  flightNumber String
+  origin       String
+  destination  String
+  departureTime String
+  arrivalTime   String
+  duration     String
+  price        Int
+  currency     String   @default("INR")
+  available    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+model Package {
+  id          String   @id @default(cuid())
+  name        String
+  durationDays Int
+  price        Int
+  currency     String   @default("INR")
+  perks        String
+  available    Boolean  @default(true)
+  createdAt    DateTime @default(now())
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  name        String
+  location    String
+  price       Int
+  currency    String   @default("INR")
+  duration    String
+  available   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Visa {
+  id        String   @id @default(cuid())
+  country   String
+  type      String
+  duration  String
+  fee       Int
+  currency  String   @default("INR")
+  available Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id             String    @id @default(cuid())
+  user           User      @relation(fields: [userId], references: [id])
+  userId         String
+  itemType       String
+  itemId         String
+  status         String    @default("pending")
+  createdAt      DateTime  @default(now())
+  
+  // Custom booking details
+  checkInDate    DateTime?
+  checkOutDate   DateTime?
+  guestName      String?
+  roomType       String?
+  amount         Int?
+  paymentStatus  String?   @default("pending") // pending, paid, refunded
+}
+
+model Itinerary {
+  id            String   @id @default(cuid())
+  userId        String
+  destination   String
+  duration      Int
+  budget        String
+  headcount     Int
+  interests     String[]
+  pace          String?
+  accommodation String?
+  requirements  String?
+  content       String   @db.Text
+  createdAt     DateTime @default(now())
+}
