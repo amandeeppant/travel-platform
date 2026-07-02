@@ -43,9 +43,13 @@ export function SectionHeader({ title, subtitle, action }: { title: string; subt
   );
 }
 
-export function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
+export function Card({ children, style, className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f0f0f0", boxShadow: "0 4px 16px rgba(0,0,0,0.05)", overflow: "hidden", ...style }}>
+    <div
+      className={className}
+      style={{ background: "#fff", borderRadius: 16, border: "1px solid #f0f0f0", boxShadow: "0 4px 16px rgba(0,0,0,0.05)", overflow: "hidden", ...style }}
+      {...props}
+    >
       {children}
     </div>
   );
