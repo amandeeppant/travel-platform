@@ -23,6 +23,21 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
   const [contactOpen, setContactOpen] = useState(false);
   const [notifCount] = useState(3);
 
+  // Added drawerStyle constant for right-side mobile drawer
+  const drawerStyle = {
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    height: '100vh',
+    width: '280px', // configurable width
+    maxWidth: '80vw',
+    background: '#ffffff',
+    padding: '16px 20px',
+    overflowY: 'auto',
+    boxShadow: '-4px 0 12px rgba(0,0,0,0.1)',
+    zIndex: 200,
+  };
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", fn, { passive: true });
@@ -122,7 +137,7 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
           </motion.a>
 
           {/* ─── DESKTOP NAV ─── */}
-          <nav style={{ display: "flex", alignItems: "center", gap: "2px" }} className="hidden lg:flex">
+          <nav className="nav-desktop-only" style={{ alignItems: "center", gap: "2px" }}>
 
             {/* MEAL */}
             <NavItem icon={<Utensils size={13} />} label="MEAL" isLight={isLight} />
@@ -303,7 +318,7 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
           </nav>
 
           {/* ─── RIGHT ACTIONS ─── */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          <div className="nav-desktop-only" style={{ alignItems: "center", gap: "10px", flexShrink: 0 }}>
 
             {/* Quick perks */}
             <div
@@ -366,131 +381,144 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
               Login / Register
             </motion.a>
 
-            {/* Mobile toggle */}
-            <motion.button
-              whileTap={{ scale: 0.93 }}
-              className="lg:hidden"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              style={{
-                width: "38px",
-                height: "38px",
-                borderRadius: "10px",
-                border: "1px solid",
-                borderColor: isLight ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.2)",
-                background: isLight ? "#fff" : "rgba(255,255,255,0.1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                color: isLight ? "#111" : "#fff",
-              }}
-            >
-              <AnimatePresence mode="wait">
-                {mobileOpen
-                  ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}><X size={18} /></motion.span>
-                  : <motion.span key="m" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}><Menu size={18} /></motion.span>
-                }
-              </AnimatePresence>
-            </motion.button>
           </div>
+
+          {/* ─── MOBILE HAMBURGER (only visible on mobile) ─── */}
+          <motion.button
+            whileTap={{ scale: 0.93 }}
+            className="nav-mobile-only"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            style={{
+              width: "44px",
+              height: "44px",
+              borderRadius: "12px",
+              border: "1.5px solid",
+              borderColor: isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.25)",
+              background: isLight ? "#fff" : "rgba(255,255,255,0.12)",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              color: isLight ? "#111" : "#fff",
+              flexShrink: 0,
+            }}
+          >
+            <AnimatePresence mode="wait">
+              {mobileOpen
+                ? <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}><X size={20} /></motion.span>
+                : <motion.span key="m" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}><Menu size={20} /></motion.span>
+              }
+            </AnimatePresence>
+          </motion.button>
         </div>
 
-        {/* ─── MOBILE MENU ─── */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              style={{ overflow: "hidden", background: "#ffffff", borderTop: "1px solid #f0f0f0" }}
-            >
-              <div style={{ padding: "16px 20px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                {[
-                  { icon: Utensils, label: "Meal" },
-                  { icon: Wallet, label: "E-Wallet" },
-                  { icon: Bell, label: "Alerts" },
-                  { icon: LayoutGrid, label: "Services" },
-                  { icon: Phone, label: "Contact Us" },
-                ].map(({ icon: Icon, label }) => (
-                  label === "Contact Us" ? (
-                    <button
-                      key={label}
-                      onClick={() => { setContactOpen(true); setMobileOpen(false); }}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                        padding: "11px 14px",
-                        borderRadius: "12px",
-                        fontSize: "14px",
-                        fontWeight: 600,
-                        color: "#374151",
-                        textDecoration: "none",
-                        transition: "all 0.15s",
-                        background: "transparent",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#EFF6FF"; (e.currentTarget as HTMLElement).style.color = "#1677FF"; }}
-                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#374151"; }}
-                    >
-                      <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Icon size={15} color="#1677FF" />
-                      </div>
-                      {label}
-                    </button>
-                  ) : (
-                    <a
-                      key={label}
-                      href="#"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                        padding: "11px 14px",
-                        borderRadius: "12px",
-                        fontSize: "14px",
-                        fontWeight: 600,
-                        color: "#374151",
-                        textDecoration: "none",
-                        transition: "all 0.15s",
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.color = "#1677FF"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#374151"; }}
-                    >
-                      <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Icon size={15} color="#1677FF" />
-                      </div>
-                      {label}
-                    </a>
-                  )
-                ))}
-                <a
-                  href="/register"
-                  style={{
-                    marginTop: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "8px",
-                    background: "linear-gradient(135deg, #1677FF, #0ea5e9)",
-                    color: "#fff",
-                    borderRadius: "12px",
-                    padding: "12px",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    textDecoration: "none",
-                  }}
-                >
-                  <User size={15} />
-                  Login / Register
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+       <AnimatePresence>
+  {mobileOpen && (
+    <>
+      {/* Overlay */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "rgba(0,0,0,0.4)",
+          zIndex: 120,
+        }}
+        onClick={() => setMobileOpen(false)}
+      />
+      {/* Drawer */}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
+        style={drawerStyle}
+        className="mobile-drawer"
+      >
+        <div style={{ padding: "16px 20px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
+          {[{ icon: Utensils, label: "Meal" },{ icon: Wallet, label: "E-Wallet" },{ icon: Bell, label: "Alerts" },{ icon: LayoutGrid, label: "Services" },{ icon: Phone, label: "Contact Us" }].map(({ icon: Icon, label }) => (
+            label === "Contact Us" ? (
+              <button
+                key={label}
+                onClick={() => { setContactOpen(true); setMobileOpen(false); }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  padding: "11px 14px",
+                  borderRadius: "12px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#374151",
+                  textDecoration: "none",
+                  transition: "all 0.15s",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#EFF6FF"; (e.currentTarget as HTMLElement).style.color = "#1677FF"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#374151"; }}
+              >
+                <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon size={15} color="#1677FF" />
+                </div>
+                {label}
+              </button>
+            ) : (
+              <a
+                key={label}
+                href="#"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  padding: "11px 14px",
+                  borderRadius: "12px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  color: "#374151",
+                  textDecoration: "none",
+                  transition: "all 0.15s",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.color = "#1677FF"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#374151"; }}
+              >
+                <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: "#EFF6FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon size={15} color="#1677FF" />
+                </div>
+                {label}
+              </a>
+            )
+          ))}
+          <a
+            href="/register"
+            style={{
+              marginTop: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              background: "linear-gradient(135deg, #1677FF, #0ea5e9)",
+              color: "#fff",
+              borderRadius: "12px",
+              padding: "12px",
+              fontSize: "14px",
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+          >
+            <User size={15} />
+            Login / Register
+          </a>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
+
         {/* Contact modal */}
         <AnimatePresence>
           {contactOpen && (

@@ -82,3 +82,22 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ── Navbar responsive visibility ──
+   Use these instead of Tailwind hidden/flex when inline styles exist,
+   because !important beats inline display values. */
+.nav-desktop-only {
+  display: none !important;
+}
+.nav-mobile-only {
+  display: flex !important;
+}
+
+@media (min-width: 1024px) {
+  .nav-desktop-only {
+    display: flex !important;
+  }
+  .nav-mobile-only {
+    display: none !important;
+  }
+}
