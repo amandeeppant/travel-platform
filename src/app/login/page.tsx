@@ -41,8 +41,7 @@ export default function LoginPage() {
       }
 
       saveAuthData(data);
-      const route = getPortalRouteForUser(data.user);
-      router.push(route);
+      router.push("/");
     } catch (err) {
       setError("Unable to complete login. Please check your connection.");
     } finally {
