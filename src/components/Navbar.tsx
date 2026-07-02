@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Bell, Wallet, Utensils, LayoutGrid, Phone, User,
   Menu, X, ChevronDown, Zap, Shield, Gift, Headphones,
-  Train, Plane, Bus, Hotel, Map, Star
+  Train, Plane, Bus, Hotel, Map, Star, LayoutDashboard
 } from "lucide-react";
+import { useAuthUser, getPortalRouteForUser } from "@/lib/authClient";
 
 const SERVICES_MENU = [
   { icon: Train, label: "Train Booking", desc: "10,000+ daily trains", color: "#3B82F6" },
@@ -17,6 +18,7 @@ const SERVICES_MENU = [
 ];
 
 export default function Navbar({ forceLight = false }: { forceLight?: boolean }) {
+  const authUser = useAuthUser();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -355,31 +357,60 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
             </div>
 
             {/* Login button */}
-            <motion.a
-              href="/login"
-              whileHover={{ scale: 1.04, boxShadow: "0 6px 20px rgba(22,119,255,0.4)" }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "7px",
-                background: "linear-gradient(135deg, #1677FF 0%, #0ea5e9 100%)",
-                color: "#fff",
-                border: "none",
-                borderRadius: "999px",
-                padding: "9px 20px",
-                fontSize: "13px",
-                fontWeight: 700,
-                cursor: "pointer",
-                boxShadow: "0 4px 14px rgba(22,119,255,0.35)",
-                whiteSpace: "nowrap",
-                letterSpacing: "0.01em",
-                textDecoration: "none",
-              }}
-            >
-              <User size={14} />
-              Login / Register
-            </motion.a>
+            {/* Login / Dashboard button */}
+            {authUser ? (
+              <motion.a
+                href={getPortalRouteForUser(authUser)}
+                whileHover={{ scale: 1.04, boxShadow: "0 6px 20px rgba(22,119,255,0.4)" }}
+                whileTap={{ scale: 0.97 }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  background: "linear-gradient(135deg, #1677FF 0%, #0ea5e9 100%)",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "999px",
+                  padding: "9px 20px",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  boxShadow: "0 4px 14px rgba(22,119,255,0.35)",
+                  whiteSpace: "nowrap",
+                  letterSpacing: "0.01em",
+                  textDecoration: "none",
+                }}
+              >
+                <LayoutDashboard size={14} />
+                Go to Dashboard
+              </motion.a>
+            ) : (
+              <motion.a
+                href="/login"
+                whileHover={{ scale: 1.04, boxShadow: "0 6px 20px rgba(22,119,255,0.4)" }}
+                whileTap={{ scale: 0.97 }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "7px",
+                  background: "linear-gradient(135deg, #1677FF 0%, #0ea5e9 100%)",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "999px",
+                  padding: "9px 20px",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  boxShadow: "0 4px 14px rgba(22,119,255,0.35)",
+                  whiteSpace: "nowrap",
+                  letterSpacing: "0.01em",
+                  textDecoration: "none",
+                }}
+              >
+                <User size={14} />
+                Login / Register
+              </motion.a>
+            )}
 
           </div>
 
@@ -492,27 +523,53 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
               </a>
             )
           ))}
-          <a
-            href="/register"
-            style={{
-              marginTop: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              background: "linear-gradient(135deg, #1677FF, #0ea5e9)",
-              color: "#fff",
-              borderRadius: "12px",
-              padding: "12px",
-              fontSize: "14px",
-              fontWeight: 700,
-              cursor: "pointer",
-              textDecoration: "none",
-            }}
-          >
-            <User size={15} />
-            Login / Register
-          </a>
+          {authUser ? (
+            <a
+              href={getPortalRouteForUser(authUser)}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                marginTop: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                background: "linear-gradient(135deg, #1677FF, #0ea5e9)",
+                color: "#fff",
+                borderRadius: "12px",
+                padding: "12px",
+                fontSize: "14px",
+                fontWeight: 700,
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+            >
+              <LayoutDashboard size={15} />
+              Go to Dashboard
+            </a>
+          ) : (
+            <a
+              href="/register"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                marginTop: "8px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                background: "linear-gradient(135deg, #1677FF, #0ea5e9)",
+                color: "#fff",
+                borderRadius: "12px",
+                padding: "12px",
+                fontSize: "14px",
+                fontWeight: 700,
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+            >
+              <User size={15} />
+              Login / Register
+            </a>
+          )}
         </div>
       </motion.div>
     </>
