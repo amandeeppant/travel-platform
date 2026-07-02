@@ -29,14 +29,14 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
     top: 0,
     right: 0,
     height: '100vh',
-    width: '280px', // configurable width
+    width: '280px',
     maxWidth: '80vw',
     background: '#ffffff',
     padding: '16px 20px',
     overflowY: 'auto',
     boxShadow: '-4px 0 12px rgba(0,0,0,0.1)',
     zIndex: 200,
-  };
+  } as const;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
