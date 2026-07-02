@@ -141,12 +141,11 @@ export default function PortalShell({
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#f8f9fb" }}>
 
-      {/* Desktop Sidebar */}
       <motion.aside
         animate={{ width: collapsed ? 64 : 230 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
-        style={{ background: "#0f172a", flexShrink: 0, position: "sticky", top: 0, height: "100vh", overflow: "hidden", zIndex: 40, display: "flex", flexDirection: "column" }}
-        className="hidden lg:flex"
+        style={{ background: "#0f172a", flexShrink: 0, position: "sticky", top: 0, height: "100vh", overflow: "hidden", zIndex: 40, flexDirection: "column" }}
+        className="nav-desktop-only"
       >
         <SidebarContent />
         {/* Collapse toggle */}
