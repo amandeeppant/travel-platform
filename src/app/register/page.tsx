@@ -124,7 +124,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", position: "relative", overflow: "hidden" }}>
+    <div className="p-4 md:p-6" style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden" }}>
 
       {/* Background orbs */}
       {["#1677FF","#7C3AED","#059669"].map((c, i) => (
@@ -250,9 +250,9 @@ export default function RegisterPage() {
                   WebkitBackdropFilter:"blur(32px)",
                   border:"1px solid rgba(255,255,255,0.15)",
                   borderRadius:24,
-                  padding:"36px 32px",
                   boxShadow:"0 24px 64px rgba(0,0,0,0.3)",
                 }}
+                className="p-6 md:p-9"
               >
                 {/* Portal badge */}
                 <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:24 }}>

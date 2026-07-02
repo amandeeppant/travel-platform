@@ -14,14 +14,14 @@ const DESTINATIONS = [
 
 export default function PopularDestinations() {
   return (
-    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="px-4 md:px-6 py-10 md:py-16" style={{ maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "28px" }}
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-0 mb-7"
       >
         <div>
           <h2 style={{ fontSize: "28px", fontWeight: 800, color: "#111111", marginBottom: "6px" }}>

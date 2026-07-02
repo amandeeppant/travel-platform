@@ -51,17 +51,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#0f172a 0%,#111827 60%,#1f2937 100%)", padding: "32px" }}>
+    <div className="p-4 md:p-8" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#0f172a 0%,#111827 60%,#1f2937 100%)" }}>
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
         style={{ width: "100%", maxWidth: 520, background: "rgba(15,23,42,0.9)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, boxShadow: "0 24px 80px rgba(0,0,0,0.4)", overflow: "hidden" }}>
-        <div style={{ padding: "32px 32px 24px" }}>
+        <div className="p-6 md:p-8 pb-6 md:pb-6">
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <button onClick={() => router.push("/")} style={{ width: 34, height: 34, borderRadius: 12, background: "rgba(255,255,255,0.08)", border: "none", color: "#fff", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <ChevronLeft size={18} />
             </button>
             <div>
               <p style={{ margin: 0, fontSize: 12, letterSpacing: "0.18em", color: "#7dd3fc", textTransform: "uppercase", fontWeight: 700 }}>Welcome back</p>
-              <h1 style={{ margin: "8px 0 0", color: "#fff", fontSize: 30, lineHeight: 1.05, fontWeight: 800 }}>Sign in to your portal</h1>
+              <h1 style={{ margin: "8px 0 0", color: "#fff", fontSize: "clamp(24px, 5vw, 30px)", lineHeight: 1.05, fontWeight: 800 }}>Sign in to your portal</h1>
             </div>
           </div>
 

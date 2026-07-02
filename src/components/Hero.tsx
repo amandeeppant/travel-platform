@@ -328,9 +328,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
+          className="flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-white/10"
           style={{
-            display: "flex",
-            gap: "0",
             background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(16px)",
             border: "1px solid rgba(255,255,255,0.12)",
@@ -343,11 +342,7 @@ export default function Hero() {
           {cfg.stats.map((stat, i) => (
             <div
               key={stat.label}
-              style={{
-                textAlign: "center",
-                padding: "0 28px",
-                borderRight: i < cfg.stats.length - 1 ? "1px solid rgba(255,255,255,0.12)" : "none",
-              }}
+              className="text-center py-2 sm:py-0 px-4 sm:px-7"
             >
               <p style={{ color: "#fff", fontWeight: 800, fontSize: "20px", lineHeight: 1.1 }}>{stat.value}</p>
               <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", marginTop: "3px", fontWeight: 500 }}>{stat.label}</p>
@@ -361,7 +356,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
           style={{
-            display: "inline-flex",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
             gap: "4px",
             background: "rgba(255,255,255,0.12)",
             backdropFilter: "blur(20px)",

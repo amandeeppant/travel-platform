@@ -99,7 +99,7 @@ export default function TrainsResultsPage() {
   };
 
   return (
-    <section style={{ padding: "88px 24px 64px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="px-4 md:px-6 pt-[88px] pb-10 md:pb-16" style={{ maxWidth: "1400px", margin: "0 auto" }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -231,20 +231,20 @@ export default function TrainsResultsPage() {
         </div>
 
         {/* Main content: sidebar + cards */}
-        <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
+        <div className="flex flex-col lg:flex-row w-full gap-5 items-start">
           <AnimatePresence>
             {showFilters && (
               <motion.aside
                 key="sidebar"
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: "240px" }}
-                exit={{ opacity: 0, width: 0 }}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                style={{ flexShrink: 0, overflow: "hidden" }}
+                className="w-full lg:w-[240px] flex-shrink-0 overflow-hidden"
               >
                 <div
+                  className="w-full lg:w-[240px]"
                   style={{
-                    width: "240px",
                     background: "#fff",
                     borderRadius: "16px",
                     padding: "18px",

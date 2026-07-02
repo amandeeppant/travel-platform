@@ -15,7 +15,7 @@ const ACTIONS = [
 
 export default function QuickActions() {
   return (
-    <section style={{ padding: "48px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="px-4 md:px-6 py-8 md:py-12" style={{ maxWidth: "1400px", margin: "0 auto" }}>
       <div
         style={{
           display: "grid",

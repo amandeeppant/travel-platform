@@ -79,7 +79,8 @@ export default function TravelerPortal() {
 
       {/* Welcome */}
       <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.5 }}
-        style={{ background:"linear-gradient(135deg,#1677FF 0%,#0ea5e9 100%)", borderRadius:20, padding:"28px 32px", marginBottom:28, color:"#fff", position:"relative", overflow:"hidden" }}>
+        className="p-5 md:p-8"
+        style={{ background:"linear-gradient(135deg,#1677FF 0%,#0ea5e9 100%)", borderRadius:20, marginBottom:28, color:"#fff", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", right:-20, top:-30, width:200, height:200, borderRadius:"50%", background:"rgba(255,255,255,0.07)" }} />
         <div style={{ position:"absolute", right:60, bottom:-40, width:140, height:140, borderRadius:"50%", background:"rgba(255,255,255,0.05)" }} />
         <p style={{ fontSize:13, fontWeight:600, opacity:0.75, marginBottom:6 }}>Welcome back 👋</p>
@@ -104,7 +105,7 @@ export default function TravelerPortal() {
         <StatCard icon={MapPin} label="Countries Visited" value="4"     change="+1"  color="#7C3AED" bg="#F5F3FF" delay={0.20} />
       </div>
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 340px", gap:20 }}>
+      <div className="flex flex-col xl:grid xl:grid-cols-[1fr_340px] gap-5">
 
         {/* Recent Bookings */}
         <div>

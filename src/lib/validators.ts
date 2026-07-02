@@ -1,7 +1,7 @@
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[0-9+\-() ]{7,25}$/;
 const ALLOWED_PORTALS = ["traveler", "hotel-partner", "corporate", "travel-agent", "admin"] as const;
-const ALLOWED_ITEM_TYPES = ["hotel", "flight", "package", "train", "activity", "visa"] as const;
+const ALLOWED_ITEM_TYPES = ["hotel", "room", "flight", "package", "train", "activity", "visa"] as const;
 
 export function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;

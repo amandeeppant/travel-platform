@@ -60,10 +60,10 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
         }}
       >
         <div
+          className="px-4 md:px-6"
           style={{
             maxWidth: "1400px",
             margin: "0 auto",
-            padding: "0 24px",
             height: "64px",
             display: "flex",
             alignItems: "center",

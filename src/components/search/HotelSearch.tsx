@@ -12,8 +12,8 @@ export default function HotelSearch() {
   const [checkOut, setCheckOut] = useState(nextWeek);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-      <div className="search-field" style={{ minWidth: "200px", flex: 2 }}>
+    <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-[10px] w-full">
+      <div className="search-field w-full md:w-auto" style={{ flex: 2 }}>
         <label>DESTINATION</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <MapPin size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -21,7 +21,7 @@ export default function HotelSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "140px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>CHECK IN</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -29,7 +29,7 @@ export default function HotelSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "140px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>CHECK OUT</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -37,7 +37,7 @@ export default function HotelSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "110px", maxWidth: "130px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>ROOMS</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <DoorOpen size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -49,7 +49,7 @@ export default function HotelSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "110px", maxWidth: "130px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>GUESTS</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Users size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -62,6 +62,7 @@ export default function HotelSearch() {
       </div>
 
       <button
+        className="w-full md:w-auto justify-center mt-2 md:mt-0"
         style={{
           display: "flex", alignItems: "center", gap: "8px", background: "#1677FF", color: "#fff",
           border: "none", borderRadius: "999px", padding: "13px 28px", fontSize: "15px",

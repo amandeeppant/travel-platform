@@ -181,12 +181,12 @@ export default function PortalShell({
       <div style={{ flex:1, display:"flex", flexDirection:"column", minWidth:0 }}>
 
         {/* Topbar */}
-        <header style={{ height:60, background:"#fff", borderBottom:"1px solid #f0f0f0", display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 24px", position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 0 #f0f0f0" }}>
+        <header className="px-4 md:px-6" style={{ height:60, background:"#fff", borderBottom:"1px solid #f0f0f0", display:"flex", alignItems:"center", justifyContent:"space-between", position:"sticky", top:0, zIndex:30, boxShadow:"0 1px 0 #f0f0f0" }}>
           <div style={{ display:"flex", alignItems:"center", gap:12 }}>
             <button onClick={() => setMobileOpen(true)} className="lg:hidden" style={{ background:"none", border:"none", cursor:"pointer", color:"#374151" }}>
               <Menu size={20} />
             </button>
-            <div style={{ display:"flex", alignItems:"center", gap:8, background:"#f9fafb", border:"1px solid #e5e7eb", borderRadius:10, padding:"7px 14px", minWidth:220 }}>
+            <div className="hidden sm:flex" style={{ alignItems:"center", gap:8, background:"#f9fafb", border:"1px solid #e5e7eb", borderRadius:10, padding:"7px 14px", minWidth:220 }}>
               <Search size={14} color="#9ca3af" />
               <input placeholder="Search..." style={{ background:"transparent", border:"none", outline:"none", fontSize:13, color:"#374151", width:"100%" }} />
             </div>
@@ -204,7 +204,7 @@ export default function PortalShell({
               <div style={{ width:26, height:26, borderRadius:8, background:portalColor, display:"flex", alignItems:"center", justifyContent:"center" }}>
                 <span style={{ color:"#fff", fontWeight:800, fontSize:12 }}>{effectiveUserName[0]}</span>
               </div>
-              <div>
+              <div className="hidden sm:block">
                 <p style={{ fontSize:12, fontWeight:700, color:"#111", lineHeight:1 }}>{effectiveUserName}</p>
                 <p style={{ fontSize:10, color:portalColor, fontWeight:600, lineHeight:1, marginTop:1 }}>{portalName}</p>
               </div>
@@ -213,7 +213,7 @@ export default function PortalShell({
         </header>
 
         {/* Page content */}
-        <main style={{ flex:1, padding:"28px 28px", overflowY:"auto" }}>
+        <main className="p-4 md:p-7" style={{ flex:1, overflowY:"auto" }}>
           {children}
         </main>
       </div>

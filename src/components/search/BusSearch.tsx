@@ -10,8 +10,8 @@ export default function BusSearch() {
   const [date, setDate] = useState(today);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-      <div className="search-field" style={{ minWidth: "160px" }}>
+    <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-[10px] w-full">
+      <div className="search-field w-full md:w-auto">
         <label>FROM</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <MapPin size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -19,7 +19,7 @@ export default function BusSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "160px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>TO</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <MapPin size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -27,7 +27,7 @@ export default function BusSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "150px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>DEPARTURE DATE</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -35,7 +35,7 @@ export default function BusSearch() {
         </div>
       </div>
 
-      <div className="search-field" style={{ minWidth: "120px", maxWidth: "140px" }}>
+      <div className="search-field w-full md:w-auto">
         <label>PASSENGERS</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
           <Users size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -48,6 +48,7 @@ export default function BusSearch() {
       </div>
 
       <button
+        className="w-full md:w-auto justify-center mt-2 md:mt-0"
         style={{
           display: "flex", alignItems: "center", gap: "8px", background: "#1677FF", color: "#fff",
           border: "none", borderRadius: "999px", padding: "13px 28px", fontSize: "15px",
