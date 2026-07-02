@@ -333,6 +333,20 @@ button, a, input, select, textarea {
     min-width: 0 !important;
     table-layout: fixed !important;
   }
+  .portal-main:not(.inventory-page) .portal-table-scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .portal-main:not(.inventory-page) .portal-table-scroll table {
+    width: auto !important;
+    min-width: 720px !important;
+    table-layout: auto !important;
+  }
+  .portal-main:not(.inventory-page) .portal-table-scroll th,
+  .portal-main:not(.inventory-page) .portal-table-scroll td {
+    white-space: nowrap !important;
+    word-break: normal !important;
+  }
   .portal-main:not(.inventory-page) th,
   .portal-main:not(.inventory-page) td {
     white-space: normal !important;

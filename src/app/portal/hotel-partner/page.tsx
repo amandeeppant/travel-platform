@@ -167,13 +167,13 @@ export default function HotelPartnerPortal() {
           <SectionHeader title="Recent Bookings" subtitle="Manage incoming reservations"
             action={<PrimaryButton label="View All" color="#059669" icon={ChevronRight} onClick={() => router.push("/portal/hotel-partner/bookings")} />}
           />
-          <Card>
-            <div style={{ overflowX:"auto" }}>
-              <table style={{ width:"100%", borderCollapse:"collapse" }}>
+          <Card style={{ padding: 20 }}>
+            <div className="portal-table-scroll" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+              <table style={{ minWidth: 720, width: "100%", borderCollapse: "collapse", borderSpacing: 0 }}>
                 <thead>
-                  <tr style={{ background:"#f9fafb", borderBottom:"1px solid #f0f0f0" }}>
-                    {["Guest","Room Type","Check-in","Check-out","Amount","Status"].map(h => (
-                      <th key={h} style={{ padding:"11px 16px", textAlign:"left", fontSize:11, fontWeight:700, color:"#9ca3af", letterSpacing:"0.06em", textTransform:"uppercase", whiteSpace:"nowrap" }}>{h}</th>
+                  <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e5e7eb" }}>
+                    {["Guest", "Room Type", "Check-in", "Check-out", "Amount", "Status"].map(h => (
+                      <th key={h} style={{ padding: "14px 16px", textAlign: "left", fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", whiteSpace: "nowrap" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -194,15 +194,15 @@ export default function HotelPartnerPortal() {
                       const style = normStatus === "Confirmed" ? { color: "#16a34a", bg: "#f0fdf4" } : normStatus === "Cancelled" ? { color: "#dc2626", bg: "#fef2f2" } : { color: "#d97706", bg: "#fffbeb" };
 
                       return (
-                        <tr key={i} style={{ borderBottom:"1px solid #f9fafb" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background="#f9fafb")}
-                          onMouseLeave={(e) => (e.currentTarget.style.background="transparent")}>
-                          <td style={{ padding:"12px 16px", fontSize:13, fontWeight:600, color:"#111", whiteSpace:"nowrap" }}>{guestName}</td>
-                          <td style={{ padding:"12px 16px", fontSize:12, color:"#6B7280", whiteSpace:"nowrap" }}>{roomType}</td>
-                          <td style={{ padding:"12px 16px", fontSize:12, color:"#6B7280", whiteSpace:"nowrap" }}>{checkinStr}</td>
-                          <td style={{ padding:"12px 16px", fontSize:12, color:"#6B7280", whiteSpace:"nowrap" }}>{checkoutStr}</td>
-                          <td style={{ padding:"12px 16px", fontSize:13, fontWeight:700, color:"#111", whiteSpace:"nowrap" }}>{amountStr}</td>
-                          <td style={{ padding:"12px 16px" }}><Badge label={normStatus} color={style.color} bg={style.bg} /></td>
+                        <tr key={i} style={{ transition: "background 0.2s", borderBottom: "1px solid #f3f4f6" }}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = "#f8fafc")}
+                          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
+                          <td style={{ padding: "16px 16px", fontSize: 13, fontWeight: 700, color: "#111", whiteSpace: "nowrap" }}>{guestName}</td>
+                          <td style={{ padding: "16px 16px", fontSize: 12, color: "#6B7280", whiteSpace: "nowrap" }}>{roomType}</td>
+                          <td style={{ padding: "16px 16px", fontSize: 12, color: "#6B7280", whiteSpace: "nowrap" }}>{checkinStr}</td>
+                          <td style={{ padding: "16px 16px", fontSize: 12, color: "#6B7280", whiteSpace: "nowrap" }}>{checkoutStr}</td>
+                          <td style={{ padding: "16px 16px", fontSize: 13, fontWeight: 700, color: "#111", whiteSpace: "nowrap" }}>{amountStr}</td>
+                          <td style={{ padding: "16px 16px" }}><Badge label={normStatus} color={style.color} bg={style.bg} /></td>
                         </tr>
                       );
                     })
