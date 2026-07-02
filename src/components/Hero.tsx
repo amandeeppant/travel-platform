@@ -221,6 +221,7 @@ export default function Hero() {
 
       {/* ── CONTENT ── */}
       <div
+        className="hero-content"
         style={{
           position: "relative",
           zIndex: 10,
@@ -243,6 +244,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="hero-badge"
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -283,6 +285,7 @@ export default function Hero() {
           style={{ textAlign: "center", marginBottom: "10px" }}
         >
           <h1
+            className="hero-title"
             style={{
               color: "#ffffff",
               fontWeight: 900,
@@ -311,6 +314,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          className="hero-subtitle"
           style={{
             color: "rgba(255,255,255,0.72)",
             fontSize: "clamp(14px, 1.4vw, 18px)",
@@ -329,6 +333,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
+          className="hero-stats"
           style={{
             display: "flex",
             gap: "0",
@@ -364,6 +369,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.35 }}
+          className="hero-tabs"
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -416,6 +422,7 @@ export default function Hero() {
           style={{ width: "100%", maxWidth: "1080px" }}
         >
           <div
+            className="hero-search-card"
             style={{
               background: "rgba(255,255,255,0.13)",
               backdropFilter: "blur(28px)",

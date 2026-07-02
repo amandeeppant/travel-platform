@@ -4,12 +4,13 @@ import { Apple, Play, Star } from "lucide-react";
 
 export default function MobileAppSection() {
   return (
-    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto", overflow: "hidden" }}>
+    <section className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto", overflow: "hidden" }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
+        className="mobile-app-card"
         style={{
           position: "relative",
           overflow: "hidden",
@@ -92,7 +93,7 @@ export default function MobileAppSection() {
           </div>
 
           {/* Store Buttons */}
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <div className="store-buttons" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
             {[
               { icon: <Apple size={22} />, line1: "Download on the", line2: "App Store" },
               { icon: <Play size={18} fill="#fff" />, line1: "Get it on", line2: "Google Play" },
@@ -130,7 +131,7 @@ export default function MobileAppSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-        className="hidden sm:flex"
+          className="phone-mockups hidden sm:flex"
           style={{
             alignItems: "flex-end",
             gap: "16px",

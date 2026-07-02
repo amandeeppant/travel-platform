@@ -10,7 +10,7 @@ export default function BusSearch() {
   const [date, setDate] = useState(today);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+    <div className="search-shell" style={{ alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
       <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
         <label>FROM</label>
         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -48,6 +48,7 @@ export default function BusSearch() {
       </div>
 
       <button
+        className="search-action"
         style={{
           display: "flex", alignItems: "center", gap: "8px", background: "#1677FF", color: "#fff",
           border: "none", borderRadius: "999px", padding: "13px 28px", fontSize: "15px",

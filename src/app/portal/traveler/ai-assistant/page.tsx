@@ -123,10 +123,10 @@ export default function AITravelAssistantPage() {
         <StatCard icon={Sparkles} label="Capabilities" value="Full Support" color="#D97706" bg="#FFFBEB" delay={0.15} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: 20, alignItems: "stretch", minHeight: 520 }}>
-        
+      <div className="assistant-grid" style={{ minHeight: 520 }}>
+
         {/* Chat Console Panel */}
-        <Card style={{ display: "flex", flexDirection: "column", padding: 0, overflow: "hidden", height: "100%" }}>
+        <Card className="assistant-chat" style={{ display: "flex", flexDirection: "column", padding: 0, overflow: "hidden", height: "100%" }}>
           {/* Header of Chat */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", borderBottom: "1px solid #f0f0f0", background: "#f8fafc" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -206,7 +206,7 @@ export default function AITravelAssistantPage() {
         </Card>
 
         {/* Sidebar help tips panel */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div className="assistant-sidebar" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Card style={{ padding: 18 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <HelpCircle size={16} color="#1677FF" />

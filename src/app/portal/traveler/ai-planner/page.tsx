@@ -101,6 +101,7 @@ export default function AITravelPlannerPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [itinerary, setItinerary] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Saved itineraries list state
   const [savedItineraries, setSavedItineraries] = useState<SavedItinerary[]>([]);
@@ -126,6 +127,11 @@ export default function AITravelPlannerPage() {
 
   useEffect(() => {
     fetchSaved();
+
+    const updateMobile = () => setIsMobile(window.innerWidth < 768);
+    updateMobile();
+    window.addEventListener("resize", updateMobile);
+    return () => window.removeEventListener("resize", updateMobile);
   }, []);
 
   const handleInterestToggle = (interest: string) => {
@@ -266,6 +272,70 @@ export default function AITravelPlannerPage() {
     handleGenerate(undefined, item);
   };
 
+  const resultContent = (
+    <AnimatePresence mode="wait">
+      {loading && (
+        <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "120px 0" }}>
+          <Sparkles size={48} color="#1677FF" style={{ animation: "spin 2s linear infinite" }} />
+          <h3 style={{ fontSize: 16, fontWeight: 800, color: "#111", marginTop: 16 }}>Consulting AI Assistant...</h3>
+          <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>Structuring routes, hotel tags, and scenic highlights...</p>
+        </motion.div>
+      )}
+
+      {error && (
+        <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          style={{ display: "flex", alignItems: "center", gap: 10, background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 12, padding: "14px 18px", color: "#dc2626", fontSize: 13 }}>
+          <AlertCircle size={18} />
+          <span>{error}</span>
+        </motion.div>
+      )}
+
+      {!loading && !error && !itinerary && (
+        <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "120px 0", textAlign: "center" }}>
+          <Compass size={40} color="#9ca3af" />
+          <h3 style={{ fontSize: 15, fontWeight: 800, color: "#4b5563", marginTop: 12 }}>Your Travel Itinerary Awaits</h3>
+          <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 4, maxWidth: 300 }}>Enter your custom destination details on the left, customize your interest tags, and generate your plan.</p>
+        </motion.div>
+      )}
+
+      {!loading && !error && itinerary && (
+        <motion.div key="result" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+          style={{ position: "relative" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, paddingBottom: 12, borderBottom: "1px solid #f0f0f0" }}>
+            <SectionHeader title="Your AI Itinerary" subtitle={`Custom trip plan generated for ${place}`} />
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <button onClick={handleSaveItinerary} disabled={saving}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", border: "1px solid #059669", borderRadius: 8, background: saveSuccess ? "#ECFDF5" : "#fff", fontSize: 11, fontWeight: 700, color: "#059669", cursor: "pointer", transition: "all 0.2s" }}>
+                {saveSuccess ? (
+                  <>
+                    <Check size={12} /> Saved!
+                  </>
+                ) : (
+                  <>
+                    <Save size={12} /> {saving ? "Saving..." : "Save Itinerary"}
+                  </>
+                )}
+              </button>
+              <button onClick={() => {
+                const blob = new Blob([itinerary], { type: "text/markdown" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${place.toLowerCase().replace(/[^a-z0-9]/g, "-")}-itinerary.md`;
+                a.click();
+              }} style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", border: "1px solid #e5e7eb", borderRadius: 8, background: "#fff", fontSize: 11, fontWeight: 700, color: "#374151", cursor: "pointer" }}>
+                <Download size={12} /> Save MD
+              </button>
+            </div>
+          </div>
+          <MarkdownRenderer content={itinerary} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
   return (
     <PortalShell portalName="Traveler" portalColor="#1677FF" portalBg="#EFF6FF" portalIcon={User} navItems={NAV} userName={displayName} userRole="Traveler">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
@@ -282,7 +352,7 @@ export default function AITravelPlannerPage() {
         <StatCard icon={Star} label="Active Planner" value="AI Agent" color="#D97706" bg="#FFFBEB" delay={0.15} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "360px 1fr", gap: 20, alignItems: "start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "360px 1fr", gap: 20, alignItems: "start" }}>
         
         {/* Left Inputs Card */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -371,6 +441,12 @@ export default function AITravelPlannerPage() {
             </form>
           </Card>
 
+          {isMobile && (
+            <Card style={{ padding: 24, minHeight: 400 }}>
+              {resultContent}
+            </Card>
+          )}
+
           {/* Saved Itineraries Section */}
           {savedItineraries.length > 0 && (
             <Card style={{ padding: 18 }}>
@@ -410,73 +486,13 @@ export default function AITravelPlannerPage() {
           </Card>
         </div>
 
-        {/* Right Output Card */}
-        <Card style={{ padding: 24, minHeight: 600 }}>
-          <AnimatePresence mode="wait">
-            {loading && (
-              <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "120px 0" }}>
-                <Sparkles size={48} color="#1677FF" style={{ animation: "spin 2s linear infinite" }} />
-                <h3 style={{ fontSize: 16, fontWeight: 800, color: "#111", marginTop: 16 }}>Consulting AI Assistant...</h3>
-                <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>Structuring routes, hotel tags, and scenic highlights...</p>
-              </motion.div>
-            )}
-
-            {error && (
-              <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ display: "flex", alignItems: "center", gap: 10, background: "#fef2f2", border: "1px solid #fca5a5", borderRadius: 12, padding: "14px 18px", color: "#dc2626", fontSize: 13 }}>
-                <AlertCircle size={18} />
-                <span>{error}</span>
-              </motion.div>
-            )}
-
-            {!loading && !error && !itinerary && (
-              <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                style={{ height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "120px 0", textAlign: "center" }}>
-                <Compass size={40} color="#9ca3af" />
-                <h3 style={{ fontSize: 15, fontWeight: 800, color: "#4b5563", marginTop: 12 }}>Your Travel Itinerary Awaits</h3>
-                <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 4, maxWidth: 300 }}>Enter your custom destination details on the left, customize your interest tags, and generate your plan.</p>
-              </motion.div>
-            )}
-
-            {!loading && !error && itinerary && (
-              <motion.div key="result" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                style={{ position: "relative" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, paddingBottom: 12, borderBottom: "1px solid #f0f0f0" }}>
-                  <SectionHeader title="Your AI Itinerary" subtitle={`Custom trip plan generated for ${place}`} />
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <button onClick={handleSaveItinerary} disabled={saving}
-                      style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", border: "1px solid #059669", borderRadius: 8, background: saveSuccess ? "#ECFDF5" : "#fff", fontSize: 11, fontWeight: 700, color: "#059669", cursor: "pointer", transition: "all 0.2s" }}>
-                      {saveSuccess ? (
-                        <>
-                          <Check size={12} /> Saved!
-                        </>
-                      ) : (
-                        <>
-                          <Save size={12} /> {saving ? "Saving..." : "Save Itinerary"}
-                        </>
-                      )}
-                    </button>
-                    <button onClick={() => {
-                      const blob = new Blob([itinerary], { type: "text/markdown" });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = `${place.toLowerCase().replace(/[^a-z0-9]/g, "-")}-itinerary.md`;
-                      a.click();
-                    }} style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", border: "1px solid #e5e7eb", borderRadius: 8, background: "#fff", fontSize: 11, fontWeight: 700, color: "#374151", cursor: "pointer" }}>
-                      <Download size={12} /> Save MD
-                    </button>
-                  </div>
-                </div>
-                <MarkdownRenderer content={itinerary} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Card>
-
+        {!isMobile && (
+          <Card style={{ padding: 24, minHeight: 600 }}>
+            {resultContent}
+          </Card>
+        )}
       </div>
-      
+
       {/* Dynamic Keyframe Injection for Spinner */}
       <style jsx global>{`
         @keyframes spin {

@@ -22,10 +22,11 @@ export default function Footer() {
 
   return (
     <footer style={{ background: "#ffffff", borderTop: "1px solid #f0f0f0" }}>
-      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "64px 24px 32px" }}>
+      <div className="footer-shell" style={{ maxWidth: "1400px", margin: "0 auto", padding: "64px 24px 32px" }}>
 
         {/* Top grid */}
         <div
+          className="footer-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1.4fr repeat(4, 1fr)",
@@ -48,7 +49,7 @@ export default function Footer() {
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#111", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "8px" }}>
               Stay Updated
             </p>
-            <div style={{ display: "flex", gap: "6px", marginBottom: "16px" }}>
+            <div className="footer-subscribe" style={{ display: "flex", gap: "6px", marginBottom: "16px" }}>
               <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "8px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "9px 12px" }}>
                 <Mail size={13} color="#9ca3af" />
                 <input
@@ -84,7 +85,7 @@ export default function Footer() {
 
           {/* Link columns */}
           {Object.entries(COLUMNS).map(([title, links]) => (
-            <div key={title}>
+            <div className="footer-links" key={title}>
               <h4 style={{ fontSize: "11px", fontWeight: 700, color: "#111", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "14px" }}>
                 {title}
               </h4>
@@ -107,7 +108,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: "1px solid #f0f0f0", paddingTop: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+        <div className="footer-bottom" style={{ borderTop: "1px solid #f0f0f0", paddingTop: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
           <p style={{ fontSize: "12px", color: "#9ca3af" }}>
             © {new Date().getFullYear()} TravelEase. All rights reserved.
           </p>

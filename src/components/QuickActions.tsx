@@ -15,8 +15,9 @@ const ACTIONS = [
 
 export default function QuickActions() {
   return (
-    <section style={{ padding: "48px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="home-section" style={{ padding: "48px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       <div
+        className="quick-actions-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(100px, 1fr))",

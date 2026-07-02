@@ -22,8 +22,7 @@ export default function TrainSearch() {
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}
-        className="train-search-row">
+      <div className="search-shell train-search-row" style={{ alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
 
         {/* FROM */}
         <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
@@ -37,6 +36,7 @@ export default function TrainSearch() {
         {/* SWAP */}
         <button
           onClick={swap}
+          className="search-swap"
           style={{ width: 36, height: 36, borderRadius: "50%", background: "#1677FF", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 4px 12px rgba(22,119,255,0.35)", transition: "transform 0.2s" }}
           onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.12)")}
           onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
@@ -63,7 +63,7 @@ export default function TrainSearch() {
         </div>
 
         {/* Quick date buttons */}
-        <div style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
+        <div className="quick-date-row" style={{ display: "flex", gap: "6px", flexShrink: 0 }}>
           {[{ label: "Tomorrow", d: tomorrow }, { label: "Day After", d: dayAfter }].map(({ label, d }) => (
             <button
               key={label}
@@ -78,6 +78,7 @@ export default function TrainSearch() {
         {/* Search */}
         <button
           onClick={handleSearch}
+          className="search-action"
           style={{ display: "flex", alignItems: "center", gap: 8, background: "#1677FF", color: "#fff", border: "none", borderRadius: 999, padding: "13px 28px", fontSize: 15, fontWeight: 700, cursor: "pointer", boxShadow: "0 6px 20px rgba(22,119,255,0.4)", whiteSpace: "nowrap", flexShrink: 0, transition: "background 0.2s" }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#1260d6")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "#1677FF")}
@@ -88,7 +89,7 @@ export default function TrainSearch() {
       </div>
 
       {/* Benefits */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 14, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.2)" }}>
+      <div className="search-benefits" style={{ display: "flex", flexWrap: "wrap", gap: 16, marginTop: 14, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.2)" }}>
         {["✅  No cancellation fee", "⚡  Instant full refund", "🕐  24/7 support", "📋  No documentation required"].map((b) => (
           <span key={b} style={{ color: "rgba(255,255,255,0.88)", fontSize: 12, fontWeight: 500 }}>{b}</span>
         ))}

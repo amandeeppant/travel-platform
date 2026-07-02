@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, Bell, Search, LogOut, Menu,
   LucideIcon
@@ -57,7 +57,7 @@ export default function PortalShell({
     }
   }, [pathname, router]);
   const SidebarContent = () => (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", justifyContent: "space-between" }}>
       {/* Logo */}
       <div style={{ padding: collapsed ? "20px 12px" : "20px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", gap: 10 }}>
         <div style={{ width: 36, height: 36, borderRadius: 10, background: `linear-gradient(135deg,${portalColor},${portalColor}bb)`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: `0 4px 12px ${portalColor}50` }}>
@@ -141,51 +141,50 @@ export default function PortalShell({
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#f8f9fb" }}>
 
+      <input
+        id="portal-mobile-toggle"
+        type="checkbox"
+        className="portal-mobile-toggle"
+        checked={mobileOpen}
+        onChange={(e) => setMobileOpen(e.target.checked)}
+        hidden
+      />
+
       <motion.aside
         animate={{ width: collapsed ? 64 : 230 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
-        style={{ background: "#0f172a", flexShrink: 0, position: "sticky", top: 0, height: "100vh", overflow: "hidden", zIndex: 40, flexDirection: "column" }}
+        style={{ display: "flex", background: "#0f172a", flexShrink: 0, position: "fixed", left: 0, top: 0, bottom: 0, height: "100vh", overflowY: "auto", zIndex: 40, flexDirection: "column" }}
         className="nav-desktop-only"
       >
         <SidebarContent />
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          style={{ position: "absolute", top: 24, right: -12, width: 24, height: 24, borderRadius: "50%", background: "#1e293b", border: "2px solid #0f172a", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "rgba(255,255,255,0.6)", zIndex: 50 }}
+          style={{ position: "absolute", top: 24, right: 6, width: 24, height: 24, borderRadius: "50%", background: "#1e293b", border: "2px solid #0f172a", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "rgba(255,255,255,0.6)", zIndex: 50 }}
         >
           {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
         </button>
       </motion.aside>
 
       {/* Mobile Sidebar Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)}
-              style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 50 }}
-            />
-            <motion.aside
-              initial={{ x: -240 }} animate={{ x: 0 }} exit={{ x: -240 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              style={{ position: "fixed", top: 0, left: 0, bottom: 0, width: 240, background: "#0f172a", zIndex: 60, display: "flex", flexDirection: "column" }}
-            >
-              <SidebarContent />
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+      <label htmlFor="portal-mobile-toggle" className="portal-mobile-backdrop" />
+      <aside
+        className="nav-mobile-only portal-mobile-drawer"
+        style={{ display: "flex", position: "fixed", top: 0, left: 0, bottom: 0, width: 240, background: "#0f172a", zIndex: 60, flexDirection: "column", overflowY: "auto" }}
+      >
+        <SidebarContent />
+      </aside>
 
       {/* Main area */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+      <div className="portal-main-area" style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, marginLeft: collapsed ? 64 : 230, transition: "margin-left 0.25s ease", minHeight: "100vh" }}>
 
         {/* Topbar */}
-        <header style={{ height: 60, background: "#fff", borderBottom: "1px solid #f0f0f0", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 30, boxShadow: "0 1px 0 #f0f0f0" }}>
+        <header className="portal-topbar" style={{ height: 60, background: "#fff", borderBottom: "1px solid #f0f0f0", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 30, boxShadow: "0 1px 0 #f0f0f0" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden" style={{ background: "none", border: "none", cursor: "pointer", color: "#374151", padding: 8 }}>
+            <label htmlFor="portal-mobile-toggle" className="mobile-menu-button" style={{ background: "none", border: "none", cursor: "pointer", color: "#374151", padding: 8, zIndex: 35 }} aria-label="Toggle mobile menu">
               <Menu size={20} />
-            </button>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 10, padding: "7px 14px", minWidth: 220 }}>
+            </label>
+            <div className="portal-topbar-search" style={{ display: "flex", alignItems: "center", gap: 8, background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 10, padding: "7px 14px", minWidth: 220 }}>
               <Search size={14} color="#9ca3af" />
               <input placeholder="Search..." style={{ background: "transparent", border: "none", outline: "none", fontSize: 13, color: "#374151", width: "100%" }} />
             </div>
@@ -199,7 +198,7 @@ export default function PortalShell({
               <div style={{ position: "absolute", top: 6, right: 6, width: 8, height: 8, borderRadius: "50%", background: "#EF4444", border: "2px solid #fff" }} />
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 10, background: `${portalBg}`, border: `1px solid ${portalColor}22`, cursor: "pointer" }}>
+            <div className="portal-topbar-user" style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px", borderRadius: 10, background: `${portalBg}`, border: `1px solid ${portalColor}22`, cursor: "pointer" }}>
               <div style={{ width: 26, height: 26, borderRadius: 8, background: portalColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <span style={{ color: "#fff", fontWeight: 800, fontSize: 12 }}>{effectiveUserName[0]}</span>
               </div>
@@ -212,7 +211,7 @@ export default function PortalShell({
         </header>
 
         {/* Page content */}
-        <main style={{ flex: 1, padding: "28px 28px", overflowY: "auto" }}>
+        <main className="portal-main" style={{ flex: 1, padding: "28px 28px", overflowY: "auto" }}>
           {children}
         </main>
       </div>

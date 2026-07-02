@@ -44,7 +44,7 @@ const HOTELS = [
 
 export default function HotelCards() {
   return (
-    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -66,6 +66,7 @@ export default function HotelCards() {
 
       {/* Grid */}
       <div
+        className="hotel-cards-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",

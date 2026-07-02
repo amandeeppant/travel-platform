@@ -9,7 +9,7 @@ export default function FeaturedBanner() {
   const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <section style={{ padding: "0 24px 64px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="home-section" style={{ padding: "0 24px 64px", maxWidth: "1400px", margin: "0 auto" }}>
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 24 }}

@@ -14,13 +14,14 @@ const DESTINATIONS = [
 
 export default function PopularDestinations() {
   return (
-    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
+        className="section-heading"
         style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "28px" }}
       >
         <div>
@@ -36,6 +37,7 @@ export default function PopularDestinations() {
 
       {/* Grid */}
       <div
+        className="destinations-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",

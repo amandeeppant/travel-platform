@@ -48,7 +48,7 @@ export default function OffersSection() {
   };
 
   return (
-    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -70,6 +70,7 @@ export default function OffersSection() {
 
       {/* Grid */}
       <div
+        className="offer-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",

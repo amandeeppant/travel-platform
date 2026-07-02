@@ -124,7 +124,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "64px 16px 32px", position: "relative", overflowX: "hidden" }}>
+    <div className="auth-shell" style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "64px 16px 32px", position: "relative", overflowX: "hidden" }}>
 
       {/* Background orbs */}
       {["#1677FF", "#7C3AED", "#059669"].map((c, i) => (
@@ -169,7 +169,7 @@ export default function RegisterPage() {
                 </p>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 14 }}>
+              <div className="register-portal-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 14 }}>
                 {PORTALS.map((p, i) => {
                   const Icon = p.icon;
                   const active = selectedPortal === p.id;

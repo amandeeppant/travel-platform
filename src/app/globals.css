@@ -18,6 +18,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+button, input, select, textarea {
+  font: inherit;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, a, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
 }
@@ -31,7 +45,6 @@ body {
   border-radius: 4px;
 }
 
-/* glass card used inside hero */
 .glass-card {
   background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(24px);
@@ -40,7 +53,6 @@ body {
   border-radius: 20px;
 }
 
-/* force white bg on input inside glass */
 .search-field {
   background: #ffffff;
   border-radius: 14px;
@@ -73,7 +85,6 @@ body {
   font-weight: 400;
 }
 
-/* scrollbar hide utility */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -83,9 +94,6 @@ body {
   display: none;
 }
 
-/* ── Navbar responsive visibility ──
-   Use these instead of Tailwind hidden/flex when inline styles exist,
-   because !important beats inline display values. */
 .nav-desktop-only {
   display: none !important;
 }
@@ -99,5 +107,297 @@ body {
   }
   .nav-mobile-only {
     display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .home-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-content {
+    padding-top: 84px !important;
+    padding-bottom: 36px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .hero-badge {
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+    margin-bottom: 16px !important;
+  }
+  .hero-title {
+    font-size: clamp(30px, 9vw, 42px) !important;
+  }
+  .hero-subtitle {
+    font-size: 14px !important;
+    margin-bottom: 20px !important;
+  }
+  .hero-stats {
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+  }
+  .hero-stats > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+    padding: 8px 0 !important;
+  }
+  .hero-stats > div:last-child {
+    border-bottom: none !important;
+  }
+  .hero-tabs {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    padding: 4px !important;
+    border-radius: 999px !important;
+  }
+  .hero-tabs button {
+    flex: 0 0 auto !important;
+    padding: 8px 14px !important;
+    font-size: 12px !important;
+  }
+  .hero-search-card {
+    padding: 16px !important;
+    border-radius: 20px !important;
+  }
+  .search-shell {
+    display: grid !important;
+    gap: 12px !important;
+  }
+  .search-shell .search-field,
+  .search-shell > button,
+  .search-shell .search-action,
+  .search-shell .search-pill,
+  .search-shell .quick-date-row {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+  .search-shell .search-swap {
+    margin: 0 auto !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .search-shell .search-action {
+    justify-content: center !important;
+    padding: 13px 16px !important;
+  }
+  .search-shell .quick-date-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .search-shell .quick-date-row button {
+    flex: 1 1 calc(50% - 4px) !important;
+  }
+  .search-benefits {
+    gap: 10px !important;
+    padding-top: 12px !important;
+  }
+  .search-benefits span {
+    width: 100% !important;
+    font-size: 11px !important;
+  }
+  .section-heading {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    margin-bottom: 18px !important;
+  }
+  .section-heading h2 {
+    font-size: 22px !important;
+  }
+  .section-heading p {
+    font-size: 13px !important;
+  }
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .quick-actions-grid button {
+    padding: 16px 10px !important;
+    border-radius: 16px !important;
+  }
+  .destinations-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .destinations-grid > div {
+    height: 190px !important;
+  }
+  .hotel-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .offer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .mobile-app-shell {
+    padding: 40px 16px !important;
+  }
+  .mobile-app-card {
+    padding: 24px 20px !important;
+  }
+  .mobile-app-card .store-buttons {
+    flex-direction: column !important;
+  }
+  .phone-mockups {
+    display: none !important;
+  }
+  .footer-shell {
+    padding: 40px 16px 24px !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .footer-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .footer-subscribe {
+    flex-direction: column !important;
+  }
+  .footer-subscribe button {
+    width: 100% !important;
+  }
+  .auth-shell {
+    padding: 16px 12px !important;
+  }
+  .register-portal-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .register-portal-grid > div {
+    padding: 18px 16px !important;
+    border-radius: 18px !important;
+  }
+  .portal-topbar {
+    padding: 0 14px !important;
+    height: 64px !important;
+  }
+  .portal-topbar-search {
+    display: none !important;
+  }
+  .portal-topbar-user {
+    display: none !important;
+  }
+  .portal-main {
+    padding: 16px !important;
+  }
+  .portal-main-area {
+    margin-left: 0 !important;
+  }
+
+  /* Hide intrusive floating widgets and side rails on phones to avoid blocking content */
+  .chat-widget, .floating-chat, .support-panel, .quick-questions, .ai-assistant-console, .side-ad, .side-rail {
+    display: none !important;
+    pointer-events: none !important;
+  }
+
+  /* Ensure tappable controls meet minimum touch sizes */
+  button, .btn, a.button, .search-action {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 12px 14px !important;
+    touch-action: manipulation;
+  }
+
+  /* Prevent fixed left/right panels from covering content on very small screens, but preserve the mobile nav overlay */
+  aside[style*="position: fixed"]:not(.nav-mobile-only), .fixed-left, .fixed-right {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+.mobile-menu-button {
+  display: block;
+}
+@media (min-width: 1024px) {
+  .mobile-menu-button {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .portal-main-area {
+    margin-left: 0 !important;
+  }
+}
+
+.portal-mobile-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.portal-mobile-drawer {
+  display: none !important;
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#portal-mobile-toggle:checked ~ .portal-mobile-backdrop {
+  display: block;
+}
+
+#portal-mobile-toggle:checked ~ .portal-mobile-drawer {
+  display: flex !important;
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 1024px) {
+  .portal-mobile-backdrop,
+  .portal-mobile-drawer {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-actions-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .destinations-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .footer-links {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* AI assistant responsive grid */
+.assistant-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+@media (max-width: 767px) {
+  .assistant-grid {
+    grid-template-columns: 1fr;
+  }
+  .assistant-chat {
+    order: 1;
+    min-height: 420px !important;
+  }
+  .assistant-sidebar {
+    order: 2;
+    width: 100% !important;
   }
 }
