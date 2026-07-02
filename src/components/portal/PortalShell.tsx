@@ -24,11 +24,13 @@ type Props = {
   children: React.ReactNode;
   userName?: string;
   userRole?: string;
+  pageClassName?: string;
 };
 
 export default function PortalShell({
   portalName, portalColor, portalBg, portalIcon: PortalIcon,
-  navItems, children, userName = "John Doe", userRole = "Member"
+  navItems, children, userName = "John Doe", userRole = "Member",
+  pageClassName = ""
 }: Props) {
   const pathname = usePathname();
   const router = useRouter();
@@ -211,7 +213,7 @@ export default function PortalShell({
         </header>
 
         {/* Page content */}
-        <main className="portal-main" style={{ flex: 1, padding: "28px 28px", overflowY: "auto" }}>
+        <main className={`portal-main ${pageClassName}`} style={{ flex: 1, padding: "28px 28px", overflowY: "auto" }}>
           {children}
         </main>
       </div>

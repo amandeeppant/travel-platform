@@ -291,11 +291,59 @@ button, a, input, select, textarea {
   .portal-topbar-user {
     display: none !important;
   }
-  .portal-main {
+  .portal-main:not(.inventory-page) {
     padding: 16px !important;
+    overflow-x: hidden !important;
+    min-width: 0 !important;
+  }
+  .portal-main:not(.inventory-page) * {
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
   .portal-main-area {
     margin-left: 0 !important;
+  }
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: 1fr 300px"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: 1fr 340px"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: 1fr 1fr"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(2, minmax(0, 1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(170px,1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(160px,1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(180px,1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(150px,1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(140px,1fr))"],
+  .portal-main:not(.inventory-page) [style*="grid-template-columns: repeat(auto-fit,minmax(100px,1fr))"] {
+    grid-template-columns: 1fr !important;
+  }
+  .portal-main:not(.inventory-page) [style*="display: grid"][style*="gap"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+  .portal-main:not(.inventory-page) [style*="width: 100vw"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .portal-main:not(.inventory-page) [style*="min-width: 220px"],
+  .portal-main:not(.inventory-page) [style*="min-width: 240px"],
+  .portal-main:not(.inventory-page) [style*="min-width: 300px"] {
+    min-width: 0 !important;
+  }
+  .portal-main:not(.inventory-page) table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+  }
+  .portal-main:not(.inventory-page) th,
+  .portal-main:not(.inventory-page) td {
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+  .portal-main:not(.inventory-page) input,
+  .portal-main:not(.inventory-page) select,
+  .portal-main:not(.inventory-page) textarea,
+  .portal-main:not(.inventory-page) button {
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
 
   /* Hide intrusive floating widgets and side rails on phones to avoid blocking content */
