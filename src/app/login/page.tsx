@@ -51,10 +51,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#0f172a 0%,#111827 60%,#1f2937 100%)", padding: "32px" }}>
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#0f172a 0%,#111827 60%,#1f2937 100%)", padding: "16px 20px" }}>
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
-        style={{ width: "100%", maxWidth: 520, background: "rgba(15,23,42,0.9)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, boxShadow: "0 24px 80px rgba(0,0,0,0.4)", overflow: "hidden" }}>
-        <div style={{ padding: "32px 32px 24px" }}>
+        style={{ width: "100%", maxWidth: 520, background: "rgba(15,23,42,0.9)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, boxShadow: "0 24px 80px rgba(0,0,0,0.4)", overflow: "hidden", margin: "24px 0" }}>
+        <div style={{ padding: "24px 20px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <button onClick={() => router.push("/")} style={{ width: 34, height: 34, borderRadius: 12, background: "rgba(255,255,255,0.08)", border: "none", color: "#fff", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <ChevronLeft size={18} />

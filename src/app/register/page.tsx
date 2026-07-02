@@ -124,7 +124,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px", position: "relative", overflow: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%)", display: "flex", alignItems: "center", justifyContent: "center", padding: "64px 16px 32px", position: "relative", overflowX: "hidden" }}>
 
       {/* Background orbs */}
       {["#1677FF", "#7C3AED", "#059669"].map((c, i) => (

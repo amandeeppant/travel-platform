@@ -183,7 +183,7 @@ export default function PortalShell({
         {/* Topbar */}
         <header style={{ height: 60, background: "#fff", borderBottom: "1px solid #f0f0f0", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", position: "sticky", top: 0, zIndex: 30, boxShadow: "0 1px 0 #f0f0f0" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden" style={{ background: "none", border: "none", cursor: "pointer", color: "#374151" }}>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden" style={{ background: "none", border: "none", cursor: "pointer", color: "#374151", padding: 8 }}>
               <Menu size={20} />
             </button>
             <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 10, padding: "7px 14px", minWidth: 220 }}>
