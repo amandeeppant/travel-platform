@@ -8,20 +8,20 @@ import {
 } from "lucide-react";
 
 const SERVICES_MENU = [
-  { icon: Train,   label: "Train Booking",    desc: "10,000+ daily trains",   color: "#3B82F6" },
-  { icon: Plane,   label: "Flight Booking",   desc: "50+ airline partners",   color: "#8B5CF6" },
-  { icon: Bus,     label: "Bus Booking",      desc: "500+ operators",         color: "#10B981" },
-  { icon: Hotel,   label: "Hotel Booking",    desc: "1M+ properties",         color: "#F59E0B" },
-  { icon: Map,     label: "Tour Packages",    desc: "Curated experiences",    color: "#EF4444" },
-  { icon: Star,    label: "Holiday Deals",    desc: "Exclusive offers",       color: "#EC4899" },
+  { icon: Train, label: "Train Booking", desc: "10,000+ daily trains", color: "#3B82F6" },
+  { icon: Plane, label: "Flight Booking", desc: "50+ airline partners", color: "#8B5CF6" },
+  { icon: Bus, label: "Bus Booking", desc: "500+ operators", color: "#10B981" },
+  { icon: Hotel, label: "Hotel Booking", desc: "1M+ properties", color: "#F59E0B" },
+  { icon: Map, label: "Tour Packages", desc: "Curated experiences", color: "#EF4444" },
+  { icon: Star, label: "Holiday Deals", desc: "Exclusive offers", color: "#EC4899" },
 ];
 
 export default function Navbar({ forceLight = false }: { forceLight?: boolean }) {
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [notifCount]                = useState(3);
+  const [notifCount] = useState(3);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40);
@@ -60,10 +60,10 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
         }}
       >
         <div
-          className="px-4 md:px-6"
           style={{
             maxWidth: "1400px",
             margin: "0 auto",
+            padding: "0 24px",
             height: "64px",
             display: "flex",
             alignItems: "center",
@@ -225,7 +225,7 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
                   >
                     {/* Arrow */}
                     <div style={{ position: "absolute", top: "-6px", left: "50%", transform: "translateX(-50%)", width: "12px", height: "12px", background: "#fff", rotate: "45deg", boxShadow: "-2px -2px 4px rgba(0,0,0,0.04)" }} />
-                    
+
                     <p style={{ fontSize: "10px", fontWeight: 700, color: "#9ca3af", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "12px", paddingLeft: "4px" }}>
                       All Services
                     </p>
@@ -407,11 +407,11 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
             >
               <div style={{ padding: "16px 20px 20px", display: "flex", flexDirection: "column", gap: "4px" }}>
                 {[
-                  { icon: Utensils,  label: "Meal" },
-                  { icon: Wallet,    label: "E-Wallet" },
-                  { icon: Bell,      label: "Alerts" },
-                  { icon: LayoutGrid,label: "Services" },
-                  { icon: Phone,     label: "Contact Us" },
+                  { icon: Utensils, label: "Meal" },
+                  { icon: Wallet, label: "E-Wallet" },
+                  { icon: Bell, label: "Alerts" },
+                  { icon: LayoutGrid, label: "Services" },
+                  { icon: Phone, label: "Contact Us" },
                 ].map(({ icon: Icon, label }) => (
                   label === "Contact Us" ? (
                     <button

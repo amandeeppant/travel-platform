@@ -6,9 +6,9 @@ import { MapPin, Calendar, ArrowLeftRight, Search } from "lucide-react";
 export default function TrainSearch() {
   const router = useRouter();
   const [from, setFrom] = useState("New Delhi");
-  const [to, setTo]     = useState("Mumbai");
+  const [to, setTo] = useState("Mumbai");
   const fmt = (d: Date) => d.toISOString().split("T")[0];
-  const today    = new Date();
+  const today = new Date();
   const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
   const dayAfter = new Date(today); dayAfter.setDate(today.getDate() + 2);
   const [date, setDate] = useState(fmt(today));
@@ -22,10 +22,11 @@ export default function TrainSearch() {
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-[10px] w-full">
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}
+        className="train-search-row">
 
         {/* FROM */}
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
           <label>FROM</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <MapPin size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -35,7 +36,6 @@ export default function TrainSearch() {
 
         {/* SWAP */}
         <button
-          className="self-center md:self-auto my-[-10px] md:my-0 z-10"
           onClick={swap}
           style={{ width: 36, height: 36, borderRadius: "50%", background: "#1677FF", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 4px 12px rgba(22,119,255,0.35)", transition: "transform 0.2s" }}
           onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.12)")}
@@ -45,7 +45,7 @@ export default function TrainSearch() {
         </button>
 
         {/* TO */}
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
           <label>TO</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <MapPin size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -54,7 +54,7 @@ export default function TrainSearch() {
         </div>
 
         {/* DATE */}
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[150px] sm:flex-1">
           <label>DEPARTURE</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -77,7 +77,6 @@ export default function TrainSearch() {
 
         {/* Search */}
         <button
-          className="w-full md:w-auto justify-center mt-2 md:mt-0"
           onClick={handleSearch}
           style={{ display: "flex", alignItems: "center", gap: 8, background: "#1677FF", color: "#fff", border: "none", borderRadius: 999, padding: "13px 28px", fontSize: 15, fontWeight: 700, cursor: "pointer", boxShadow: "0 6px 20px rgba(22,119,255,0.4)", whiteSpace: "nowrap", flexShrink: 0, transition: "background 0.2s" }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "#1260d6")}

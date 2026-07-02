@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 import { Train, UtensilsCrossed, Hash, Armchair, FileCheck, MapPin, Radio, LayoutList } from "lucide-react";
 
 const ACTIONS = [
-  { icon: Train,          label: "Metro Ticket",        bg: "#EFF6FF", color: "#2563EB" },
-  { icon: UtensilsCrossed,label: "Order Food On Train",  bg: "#FFF7ED", color: "#EA580C" },
-  { icon: Hash,           label: "Train By Name/No.",    bg: "#FAF5FF", color: "#9333EA" },
-  { icon: Armchair,       label: "Seat Availability",   bg: "#F0FDF4", color: "#16A34A" },
-  { icon: FileCheck,      label: "PNR Status",          bg: "#FEFCE8", color: "#CA8A04" },
-  { icon: MapPin,         label: "Platform Locator",    bg: "#FFF1F2", color: "#E11D48" },
-  { icon: Radio,          label: "Live Status",         bg: "#ECFEFF", color: "#0891B2" },
-  { icon: LayoutList,     label: "Coach Position",      bg: "#FDF4FF", color: "#C026D3" },
+  { icon: Train, label: "Metro Ticket", bg: "#EFF6FF", color: "#2563EB" },
+  { icon: UtensilsCrossed, label: "Order Food On Train", bg: "#FFF7ED", color: "#EA580C" },
+  { icon: Hash, label: "Train By Name/No.", bg: "#FAF5FF", color: "#9333EA" },
+  { icon: Armchair, label: "Seat Availability", bg: "#F0FDF4", color: "#16A34A" },
+  { icon: FileCheck, label: "PNR Status", bg: "#FEFCE8", color: "#CA8A04" },
+  { icon: MapPin, label: "Platform Locator", bg: "#FFF1F2", color: "#E11D48" },
+  { icon: Radio, label: "Live Status", bg: "#ECFEFF", color: "#0891B2" },
+  { icon: LayoutList, label: "Coach Position", bg: "#FDF4FF", color: "#C026D3" },
 ];
 
 export default function QuickActions() {
   return (
-    <section className="px-4 md:px-6 py-8 md:py-12" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+    <section style={{ padding: "48px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       <div
         style={{
           display: "grid",

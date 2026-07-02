@@ -5,23 +5,23 @@ import { Train } from "lucide-react";
 
 const DESTINATIONS = [
   { name: "New Delhi", trains: "1,240 trains", img: "https://images.unsplash.com/photo-1597040663342-45b6af3d91a5?w=500&q=80" },
-  { name: "Goa",       trains: "380 trains",   img: "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=500&q=80" },
-  { name: "Chennai",   trains: "920 trains",   img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=500&q=80" },
-  { name: "Mumbai",    trains: "1,580 trains", img: "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&q=80" },
-  { name: "Kolkata",   trains: "860 trains",   img: "https://images.unsplash.com/photo-1558431382-27e303142255?w=500&q=80" },
-  { name: "Dwarka",    trains: "210 trains",   img: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=500&q=80" },
+  { name: "Goa", trains: "380 trains", img: "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=500&q=80" },
+  { name: "Chennai", trains: "920 trains", img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=500&q=80" },
+  { name: "Mumbai", trains: "1,580 trains", img: "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&q=80" },
+  { name: "Kolkata", trains: "860 trains", img: "https://images.unsplash.com/photo-1558431382-27e303142255?w=500&q=80" },
+  { name: "Dwarka", trains: "210 trains", img: "https://images.unsplash.com/photo-1609220136736-443140cffec6?w=500&q=80" },
 ];
 
 export default function PopularDestinations() {
   return (
-    <section className="px-4 md:px-6 py-10 md:py-16" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 sm:gap-0 mb-7"
+        style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "28px" }}
       >
         <div>
           <h2 style={{ fontSize: "28px", fontWeight: 800, color: "#111111", marginBottom: "6px" }}>

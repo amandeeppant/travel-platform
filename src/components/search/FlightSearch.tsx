@@ -37,8 +37,8 @@ export default function FlightSearch() {
       </div>
 
       {/* Fields */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-[10px] w-full">
-        <div className="search-field w-full md:w-auto">
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+        <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
           <label>FROM</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Plane size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -47,7 +47,6 @@ export default function FlightSearch() {
         </div>
 
         <button
-          className="self-center md:self-auto my-[-10px] md:my-0 z-10"
           style={{
             width: "36px", height: "36px", borderRadius: "50%", background: "#1677FF",
             border: "none", cursor: "pointer", display: "flex", alignItems: "center",
@@ -57,7 +56,7 @@ export default function FlightSearch() {
           <ArrowLeftRight size={15} color="#fff" />
         </button>
 
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
           <label>TO</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Plane size={15} color="#1677FF" style={{ flexShrink: 0, transform: "rotate(90deg)" }} />
@@ -65,7 +64,7 @@ export default function FlightSearch() {
           </div>
         </div>
 
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[140px] sm:flex-1">
           <label>DEPARTURE</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -74,7 +73,7 @@ export default function FlightSearch() {
         </div>
 
         {tripType === "round" && (
-          <div className="search-field w-full md:w-auto">
+          <div className="search-field w-full sm:min-w-[140px] sm:flex-1">
             <label>RETURN</label>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               <Calendar size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -83,7 +82,7 @@ export default function FlightSearch() {
           </div>
         )}
 
-        <div className="search-field w-full md:w-auto">
+        <div className="search-field w-full sm:min-w-[120px] sm:max-w-[140px]">
           <label>TRAVELLERS</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
             <Users size={15} color="#1677FF" style={{ flexShrink: 0 }} />
@@ -102,7 +101,6 @@ export default function FlightSearch() {
         </div>
 
         <button
-          className="w-full md:w-auto justify-center mt-2 md:mt-0"
           style={{
             display: "flex", alignItems: "center", gap: "8px", background: "#1677FF", color: "#fff",
             border: "none", borderRadius: "999px", padding: "13px 28px", fontSize: "15px",

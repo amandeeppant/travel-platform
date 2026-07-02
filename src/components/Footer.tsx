@@ -11,10 +11,10 @@ const COLUMNS: Record<string, string[]> = {
 };
 
 const SOCIAL = [
-  { icon: Share2,        label: "Twitter" },
+  { icon: Share2, label: "Twitter" },
   { icon: MessageCircle, label: "Facebook" },
-  { icon: BookOpen,      label: "Blog" },
-  { icon: Briefcase,     label: "LinkedIn" },
+  { icon: BookOpen, label: "Blog" },
+  { icon: Briefcase, label: "LinkedIn" },
 ];
 
 export default function Footer() {
@@ -22,11 +22,16 @@ export default function Footer() {
 
   return (
     <footer style={{ background: "#ffffff", borderTop: "1px solid #f0f0f0" }}>
-      <div className="px-4 md:px-6 pt-10 md:pt-16 pb-8" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "64px 24px 32px" }}>
 
         {/* Top grid */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-[1.4fr_repeat(4,1fr)] gap-10 mb-12"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.4fr repeat(4, 1fr)",
+            gap: "40px",
+            marginBottom: "48px",
+          }}
         >
           {/* Brand column */}
           <div>
@@ -102,7 +107,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-[#f0f0f0] pt-6">
+        <div style={{ borderTop: "1px solid #f0f0f0", paddingTop: "24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
           <p style={{ fontSize: "12px", color: "#9ca3af" }}>
             © {new Date().getFullYear()} TravelEase. All rights reserved.
           </p>

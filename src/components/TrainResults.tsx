@@ -14,34 +14,34 @@ const TRAINS = [
     classes: [
       { cls: "1A", fare: "₹4,365", status: "AVL 12", avail: true },
       { cls: "2A", fare: "₹2,580", status: "AVL 45", avail: true },
-      { cls: "3A", fare: "₹1,740", status: "WL 4",   avail: false },
+      { cls: "3A", fare: "₹1,740", status: "WL 4", avail: false },
     ],
   },
   {
     number: "12951",
     name: "Mumbai Rajdhani",
     from: "NDLS", fromCity: "New Delhi",
-    to: "BCT",  toCity: "Mumbai Central",
+    to: "BCT", toCity: "Mumbai Central",
     dep: "17:00", arr: "08:15", duration: "15h 15m",
     days: "Daily",
     classes: [
-      { cls: "1A", fare: "₹4,895", status: "AVL 3",  avail: true  },
-      { cls: "2A", fare: "₹2,840", status: "WL 2",   avail: false },
-      { cls: "3A", fare: "₹1,950", status: "AVL 22", avail: true  },
-      { cls: "SL", fare: "₹730",   status: "AVL 88", avail: true  },
+      { cls: "1A", fare: "₹4,895", status: "AVL 3", avail: true },
+      { cls: "2A", fare: "₹2,840", status: "WL 2", avail: false },
+      { cls: "3A", fare: "₹1,950", status: "AVL 22", avail: true },
+      { cls: "SL", fare: "₹730", status: "AVL 88", avail: true },
     ],
   },
   {
     number: "22221",
     name: "CSMT Rajdhani",
     from: "NDLS", fromCity: "New Delhi",
-    to: "CSMT",  toCity: "Chhatrapati Shivaji",
+    to: "CSMT", toCity: "Chhatrapati Shivaji",
     dep: "11:00", arr: "05:45", duration: "18h 45m",
     days: "Tue Thu Sun",
     classes: [
-      { cls: "2A", fare: "₹2,610", status: "AVL 17", avail: true  },
-      { cls: "3A", fare: "₹1,780", status: "AVL 34", avail: true  },
-      { cls: "SL", fare: "₹680",   status: "WL 12",  avail: false },
+      { cls: "2A", fare: "₹2,610", status: "AVL 17", avail: true },
+      { cls: "3A", fare: "₹1,780", status: "AVL 34", avail: true },
+      { cls: "SL", fare: "₹680", status: "WL 12", avail: false },
     ],
   },
 ];
@@ -62,7 +62,7 @@ export default function TrainResults() {
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <section className="px-4 md:px-6 pt-[88px] pb-10 md:pb-16" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -195,21 +195,21 @@ export default function TrainResults() {
         </div>
 
         {/* Main content: sidebar + cards */}
-        <div className="flex flex-col lg:flex-row w-full gap-5 items-start">
+        <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
           {/* Filter Sidebar */}
           <AnimatePresence>
             {showFilters && (
               <motion.aside
                 key="sidebar"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: "240px" }}
+                exit={{ opacity: 0, width: 0 }}
                 transition={{ duration: 0.3 }}
-                className="w-full lg:w-[240px] flex-shrink-0 overflow-hidden"
+                style={{ flexShrink: 0, overflow: "hidden" }}
               >
                 <div
-                  className="w-full lg:w-[240px]"
                   style={{
+                    width: "240px",
                     background: "#fff",
                     borderRadius: "16px",
                     padding: "18px",

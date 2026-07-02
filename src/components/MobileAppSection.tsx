@@ -4,17 +4,17 @@ import { Apple, Play, Star } from "lucide-react";
 
 export default function MobileAppSection() {
   return (
-    <section className="px-4 md:px-6 py-10 md:py-16" style={{ maxWidth: "1400px", margin: "0 auto" }}>
+    <section style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto", overflow: "hidden" }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-          className="px-6 md:px-14 py-10 md:py-[60px]"
-          style={{
-            position: "relative",
-            overflow: "hidden",
-            borderRadius: "28px",
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: "28px",
+          padding: "60px 56px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -130,8 +130,8 @@ export default function MobileAppSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
+        className="hidden sm:flex"
           style={{
-            display: "flex",
             alignItems: "flex-end",
             gap: "16px",
             flexShrink: 0,

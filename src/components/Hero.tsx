@@ -164,6 +164,7 @@ export default function Hero() {
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
+        maxWidth: "100vw",
       }}
     >
       {/* ── BACKGROUND LAYER ── */}
@@ -184,8 +185,8 @@ export default function Hero() {
 
       {/* Animated mesh gradient blobs */}
       <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-        <Orb x="5%"  y="10%" size={500} color={cfg.particles} delay={0} />
-        <Orb x="65%" y="5%"  size={400} color={cfg.particles} delay={2} />
+        <Orb x="5%" y="10%" size={500} color={cfg.particles} delay={0} />
+        <Orb x="65%" y="5%" size={400} color={cfg.particles} delay={2} />
         <Orb x="80%" y="55%" size={350} color={cfg.particles} delay={4} />
         <Orb x="10%" y="65%" size={300} color={cfg.particles} delay={1} />
         <Orb x="45%" y="80%" size={280} color={cfg.particles} delay={3} />
@@ -328,8 +329,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-white/10"
           style={{
+            display: "flex",
+            gap: "0",
             background: "rgba(255,255,255,0.08)",
             backdropFilter: "blur(16px)",
             border: "1px solid rgba(255,255,255,0.12)",
@@ -339,15 +341,22 @@ export default function Hero() {
             overflow: "hidden",
           }}
         >
+          <div style={{ display: "flex", overflowX: "auto", WebkitOverflowScrolling: "touch" }} className="scrollbar-hide">
           {cfg.stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="text-center py-2 sm:py-0 px-4 sm:px-7"
+              style={{
+                textAlign: "center",
+                padding: "0 20px",
+                borderRight: i < cfg.stats.length - 1 ? "1px solid rgba(255,255,255,0.12)" : "none",
+                flexShrink: 0,
+              }}
             >
               <p style={{ color: "#fff", fontWeight: 800, fontSize: "20px", lineHeight: 1.1 }}>{stat.value}</p>
               <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", marginTop: "3px", fontWeight: 500 }}>{stat.label}</p>
             </div>
           ))}
+          </div>
         </motion.div>
 
         {/* Tab Pills */}
@@ -425,10 +434,10 @@ export default function Hero() {
                 exit={{ opacity: 0, x: -16 }}
                 transition={{ duration: 0.22 }}
               >
-                {activeTab === "Trains"  && <TrainSearch />}
+                {activeTab === "Trains" && <TrainSearch />}
                 {activeTab === "Flights" && <FlightSearch />}
-                {activeTab === "Bus"     && <BusSearch />}
-                {activeTab === "Hotels"  && <HotelSearch />}
+                {activeTab === "Bus" && <BusSearch />}
+                {activeTab === "Hotels" && <HotelSearch />}
               </motion.div>
             </AnimatePresence>
           </div>
