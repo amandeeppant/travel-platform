@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User, Building2, Briefcase, Users, Shield,
+  User, Building2, Briefcase, Users,
   ArrowRight, CheckCircle2, Eye, EyeOff, ChevronLeft
 } from "lucide-react";
 
@@ -51,17 +51,6 @@ const PORTALS = [
     bg: "#FFFBEB",
     features: ["Customer Management", "Group Bookings", "Commission Tracking", "Quotation Generation", "B2B Rates"],
     route: "/portal/travel-agent",
-  },
-  {
-    id: "admin",
-    icon: Shield,
-    title: "Administration",
-    subtitle: "Platform management",
-    desc: "Full platform control — user management, hotel approvals, booking monitoring, fraud detection.",
-    color: "#DC2626",
-    bg: "#FEF2F2",
-    features: ["User Management", "Hotel Approval", "Booking Monitoring", "Revenue Analytics", "Fraud Detection"],
-    route: "/portal/admin",
   },
 ];
 

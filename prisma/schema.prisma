@@ -171,3 +171,15 @@ model Itinerary {
   content       String   @db.Text
   createdAt     DateTime @default(now())
 }
+
+model Offer {
+  id          String   @id @default(cuid())
+  percentOff  Int
+  note        String
+  couponCode  String   @unique
+  validity    String
+  lives       Int      @default(1)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

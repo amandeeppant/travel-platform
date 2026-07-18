@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isNonEmptyString, validateEmail, validatePassword, validatePhone, validatePortal, validateItemType, validateItemId } from "./validators";
+import { isNonEmptyString, validateEmail, validatePassword, validatePhone, validatePortal, validateItemType, validateItemId, isAdminLoginCredentials, isAdminPortal, isTravellerTestLoginCredentials } from "./validators";
 
 describe("validators", () => {
   it("validates non-empty strings", () => {
@@ -28,6 +28,18 @@ describe("validators", () => {
     expect(validatePortal("traveler")).toBe(true);
     expect(validatePortal("hotel-partner")).toBe(true);
     expect(validatePortal("unknown")).toBe(false);
+  });
+
+  it("recognizes the hardcoded admin credentials and admin portal", () => {
+    expect(isAdminLoginCredentials("testadmin@gmail.com", "hello123@#")).toBe(true);
+    expect(isAdminLoginCredentials("testadmin@gmail.com", "wrong-password")).toBe(false);
+    expect(isAdminPortal("admin")).toBe(true);
+    expect(isAdminPortal("traveler")).toBe(false);
+  });
+
+  it("recognizes the traveller test login credentials", () => {
+    expect(isTravellerTestLoginCredentials("test@gmail.com", "hello123@#")).toBe(true);
+    expect(isTravellerTestLoginCredentials("test@gmail.com", "wrong-password")).toBe(false);
   });
 
   it("validates allowed item types", () => {

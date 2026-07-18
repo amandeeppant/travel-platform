@@ -7,7 +7,7 @@ import {
   Shield, Users, Building2, BookOpen, BarChart2,
   FileText, AlertTriangle, ChevronRight,
   DollarSign, TrendingUp, Activity, CheckCircle2,
-  XCircle, Clock, Eye
+  XCircle, Clock, Eye, Gift
 } from "lucide-react";
 
 const NAV = [
@@ -17,6 +17,7 @@ const NAV = [
   { icon: BookOpen,      label: "Booking Monitoring", href: "/portal/admin/bookings" },
   { icon: DollarSign,    label: "Revenue Analytics", href: "/portal/admin/revenue" },
   { icon: FileText,      label: "Content Management",href: "/portal/admin/content" },
+  { icon: Gift,          label: "Offers",            href: "/portal/admin/offers" },
   { icon: AlertTriangle, label: "Fraud Detection",   href: "/portal/admin/fraud", badge: "3" },
 ];
 

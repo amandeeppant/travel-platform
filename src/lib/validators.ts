@@ -3,6 +3,11 @@ const PHONE_REGEX = /^[0-9+\-() ]{7,25}$/;
 const ALLOWED_PORTALS = ["traveler", "hotel-partner", "corporate", "travel-agent", "admin"] as const;
 const ALLOWED_ITEM_TYPES = ["hotel", "room", "flight", "package", "train", "activity", "visa"] as const;
 
+export const ADMIN_LOGIN_EMAIL = "testadmin@gmail.com";
+export const ADMIN_LOGIN_PASSWORD = "hello123@#";
+export const TRAVELER_TEST_LOGIN_EMAIL = "test@gmail.com";
+export const TRAVELER_TEST_LOGIN_PASSWORD = "hello123@#";
+
 export function isNonEmptyString(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0;
 }
@@ -13,6 +18,18 @@ export function validateEmail(value: unknown): value is string {
 
 export function validatePassword(value: unknown): value is string {
   return typeof value === "string" && value.length >= 8;
+}
+
+export function isAdminLoginCredentials(email: unknown, password: unknown): boolean {
+  return validateEmail(email) && typeof password === "string" && email.trim().toLowerCase() === ADMIN_LOGIN_EMAIL && password === ADMIN_LOGIN_PASSWORD;
+}
+
+export function isTravellerTestLoginCredentials(email: unknown, password: unknown): boolean {
+  return validateEmail(email) && typeof password === "string" && email.trim().toLowerCase() === TRAVELER_TEST_LOGIN_EMAIL && password === TRAVELER_TEST_LOGIN_PASSWORD;
+}
+
+export function isAdminPortal(value: unknown): boolean {
+  return typeof value === "string" && value.trim().toLowerCase() === "admin";
 }
 
 export function validatePortal(value: unknown): value is (typeof ALLOWED_PORTALS)[number] {

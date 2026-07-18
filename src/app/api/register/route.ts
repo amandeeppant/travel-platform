@@ -3,7 +3,7 @@ import { findUserByEmail, registerUser } from "@/lib/backend";
 import { handleApiError } from "@/lib/apiError";
 import { logger } from "@/lib/logger";
 import { throttleRequest } from "@/lib/rateLimiter";
-import { validateEmail, validatePassword, validatePhone, validatePortal, isNonEmptyString } from "@/lib/validators";
+import { validateEmail, validatePassword, validatePhone, validatePortal, isNonEmptyString, isAdminPortal } from "@/lib/validators";
 
 function getClientIp(request: Request) {
   return (
@@ -46,6 +46,11 @@ export async function POST(request: Request) {
     if (!isNonEmptyString(name) || !validateEmail(email) || !validatePhone(phone) || !validatePassword(password) || !validatePortal(portal)) {
       logger.warn("Registration failed: invalid input", { ip, name, email, portal });
       return NextResponse.json({ error: "Invalid registration data." }, { status: 422 });
+    }
+
+    if (isAdminPortal(portal)) {
+      logger.warn("Registration failed: admin portal restricted", { ip, email });
+      return NextResponse.json({ error: "Admin portal registration is not available." }, { status: 403 });
     }
 
     if (await findUserByEmail(email)) {

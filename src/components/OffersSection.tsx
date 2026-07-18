@@ -1,45 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Tag, Copy, Check } from "lucide-react";
 
-const OFFERS = [
-  {
-    tag: "TRAINS",
-    headline: "Flat 45% Off",
-    sub: "On all Rajdhani Express bookings",
-    code: "RAIL45",
-    bg: "linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)",
-    valid: "Valid till 31 Dec",
-  },
-  {
-    tag: "FLIGHTS",
-    headline: "Flat 15% Off",
-    sub: "International flights to Dubai & Singapore",
-    code: "FLY15",
-    bg: "linear-gradient(135deg, #A855F7 0%, #EC4899 100%)",
-    valid: "Valid till 15 Jan",
-  },
-  {
-    tag: "HOTELS",
-    headline: "Flat ₹700 Off",
-    sub: "On luxury hotels above ₹5,000/night",
-    code: "HOTEL700",
-    bg: "linear-gradient(135deg, #F97316 0%, #EF4444 100%)",
-    valid: "Valid till 30 Nov",
-  },
-  {
-    tag: "BUS",
-    headline: "Buy 1 Get 1",
-    sub: "On selected inter-city bus routes",
-    code: "BUS2X",
-    bg: "linear-gradient(135deg, #22C55E 0%, #14B8A6 100%)",
-    valid: "Weekends only",
-  },
+type Offer = {
+  id: string;
+  percentOff: number;
+  note: string;
+  couponCode: string;
+  validity: string;
+  lives: number;
+};
+
+const gradients = [
+  "linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)",
+  "linear-gradient(135deg, #A855F7 0%, #EC4899 100%)",
+  "linear-gradient(135deg, #F97316 0%, #EF4444 100%)",
+  "linear-gradient(135deg, #22C55E 0%, #14B8A6 100%)",
 ];
 
 export default function OffersSection() {
+  const [offers, setOffers] = useState<Offer[]>([]);
   const [copied, setCopied] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadOffers = async () => {
+      try {
+        const response = await fetch("/api/offers");
+        const data = await response.json();
+        setOffers(Array.isArray(data) ? data : []);
+      } catch (error) {
+        setOffers([]);
+      }
+    };
+
+    loadOffers();
+  }, []);
 
   const copy = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -77,9 +73,9 @@ export default function OffersSection() {
           gap: "16px",
         }}
       >
-        {OFFERS.map((offer, i) => (
+        {offers.length === 0 ? null : offers.map((offer, i) => (
           <motion.div
-            key={offer.code}
+            key={offer.id}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -90,7 +86,7 @@ export default function OffersSection() {
               overflow: "hidden",
               borderRadius: "20px",
               padding: "24px",
-              background: offer.bg,
+              background: gradients[i % gradients.length],
               color: "#fff",
               cursor: "pointer",
             }}
@@ -133,13 +129,13 @@ export default function OffersSection() {
                   letterSpacing: "0.08em",
                 }}
               >
-                {offer.tag}
+                {offer.percentOff}% OFF
               </span>
               <h3 style={{ fontSize: "28px", fontWeight: 900, lineHeight: 1.1, marginBottom: "6px" }}>
-                {offer.headline}
+                {offer.note}
               </h3>
               <p style={{ color: "rgba(255,255,255,0.82)", fontSize: "13px", marginBottom: "16px", lineHeight: 1.4 }}>
-                {offer.sub}
+                Valid for {offer.lives} {offer.lives === 1 ? "use" : "uses"}
               </p>
 
               {/* Coupon row */}
@@ -157,11 +153,11 @@ export default function OffersSection() {
                 >
                   <Tag size={12} />
                   <span style={{ fontFamily: "monospace", fontWeight: 700, fontSize: "13px", letterSpacing: "0.05em" }}>
-                    {offer.code}
+                    {offer.couponCode}
                   </span>
                 </div>
                 <button
-                  onClick={() => copy(offer.code)}
+                  onClick={() => copy(offer.couponCode)}
                   style={{
                     background: "#ffffff",
                     color: "#374151",
@@ -177,12 +173,12 @@ export default function OffersSection() {
                     transition: "all 0.2s",
                   }}
                 >
-                  {copied === offer.code ? <Check size={13} color="#16a34a" /> : <Copy size={13} />}
-                  {copied === offer.code ? "Copied!" : "Copy"}
+                  {copied === offer.couponCode ? <Check size={13} color="#16a34a" /> : <Copy size={13} />}
+                  {copied === offer.couponCode ? "Copied!" : "Copy"}
                 </button>
               </div>
               <p style={{ color: "rgba(255,255,255,0.55)", fontSize: "11px", marginTop: "8px" }}>
-                {offer.valid}
+                {offer.validity}
               </p>
             </div>
           </motion.div>
