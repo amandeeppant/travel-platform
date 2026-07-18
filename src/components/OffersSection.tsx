@@ -5,7 +5,7 @@ import { Tag, Copy, Check } from "lucide-react";
 
 type Offer = {
   id: string;
-  percentOff: number;
+  percentOff: number | string;
   note: string;
   couponCode: string;
   validity: string;
@@ -129,7 +129,9 @@ export default function OffersSection() {
                   letterSpacing: "0.08em",
                 }}
               >
-                {offer.percentOff}% OFF
+                {typeof offer.percentOff === "number" && Number.isFinite(offer.percentOff)
+                  ? `${offer.percentOff}% OFF`
+                  : String(offer.percentOff)}
               </span>
               <h3 style={{ fontSize: "28px", fontWeight: 900, lineHeight: 1.1, marginBottom: "6px" }}>
                 {offer.note}

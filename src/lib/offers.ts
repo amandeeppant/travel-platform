@@ -13,7 +13,7 @@ export type OfferInput = {
 
 export type OfferRecord = {
   id: string;
-  percentOff: number;
+  percentOff: number | string;
   note: string;
   couponCode: string;
   validity: string;
@@ -96,14 +96,13 @@ function normalizeTimestamp(value: Date | string | null | undefined) {
 }
 
 export function normalizeOfferInput(input: OfferInput) {
-  const percentOff = Number(input.percentOff);
+  const rawPercent = input.percentOff;
+  const percentNum = Number(rawPercent);
   const lives = Number(input.lives);
   const note = typeof input.note === "string" ? input.note.trim() : "";
   const couponCode = typeof input.couponCode === "string" ? input.couponCode.trim().toUpperCase() : "";
   const validity = typeof input.validity === "string" ? input.validity.trim() : "";
-
-  // Off Type changed from percentage — remove strict 0-100 percent validation.
-  // Accept whatever `percentOff` value is provided (caller/UI now controls validity).
+  // Off Type changed from percentage — accept either numeric percent or free-text off type.
   if (!note) {
     throw new Error("A note is required.");
   }
@@ -117,8 +116,10 @@ export function normalizeOfferInput(input: OfferInput) {
     throw new Error("Lives must be a non-negative number.");
   }
 
+  const percentOffValue: number | string = Number.isFinite(percentNum) ? Math.round(percentNum) : (typeof rawPercent === "string" ? rawPercent.trim() : "");
+
   return {
-    percentOff: Math.round(percentOff),
+    percentOff: percentOffValue,
     note,
     couponCode,
     validity,

@@ -156,7 +156,11 @@ export default function AdminOffersPage() {
             {offers.map((offer) => (
               <div key={offer.id} style={{ border: "1px solid #f1f5f9", borderRadius: 14, padding: 14, display: "flex", justifyContent: "space-between", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ fontWeight: 800, color: "#111" }}>{offer.percentOff} off · {offer.note}</div>
+                  <div style={{ fontWeight: 800, color: "#111" }}>
+                    {typeof offer.percentOff === "number" && Number.isFinite(offer.percentOff)
+                      ? `${offer.percentOff}% off · ${offer.note}`
+                      : `${offer.percentOff} · ${offer.note}`}
+                  </div>
                   <div style={{ fontSize: 13, color: "#6b7280", marginTop: 4 }}>{offer.couponCode} · {offer.validity} · {offer.lives} lives · {offer.isActive ? "Active" : "Inactive"}</div>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
