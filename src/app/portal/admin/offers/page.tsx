@@ -118,8 +118,8 @@ export default function AdminOffersPage() {
         <form onSubmit={handleSubmit} style={{ background: "#fff", borderRadius: 18, padding: 20, boxShadow: "0 10px 35px rgba(0,0,0,0.06)" }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
             <label style={{ display: "grid", gap: 6, fontSize: 13, fontWeight: 600 }}>
-              Percentage Off
-              <input required value={form.percentOff} onChange={(e) => setForm({ ...form, percentOff: e.target.value })} type="number" min="0" max="100" style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #e5e7eb" }} />
+              Off type (Train, Flight, ...)
+              <input required value={form.percentOff} onChange={(e) => setForm({ ...form, percentOff: e.target.value })} type="text" style={{ padding: "10px 12px", borderRadius: 10, border: "1px solid #e5e7eb" }} />
             </label>
             <label style={{ display: "grid", gap: 6, fontSize: 13, fontWeight: 600 }}>
               Note
@@ -156,7 +156,7 @@ export default function AdminOffersPage() {
             {offers.map((offer) => (
               <div key={offer.id} style={{ border: "1px solid #f1f5f9", borderRadius: 14, padding: 14, display: "flex", justifyContent: "space-between", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ fontWeight: 800, color: "#111" }}>{offer.percentOff}% off · {offer.note}</div>
+                  <div style={{ fontWeight: 800, color: "#111" }}>{offer.percentOff} off · {offer.note}</div>
                   <div style={{ fontSize: 13, color: "#6b7280", marginTop: 4 }}>{offer.couponCode} · {offer.validity} · {offer.lives} lives · {offer.isActive ? "Active" : "Inactive"}</div>
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
