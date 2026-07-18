@@ -44,7 +44,7 @@ export default function OffersSection() {
   };
 
   return (
-    <section className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
+    <section id="offers-section" className="home-section" style={{ padding: "64px 24px", maxWidth: "1400px", margin: "0 auto" }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

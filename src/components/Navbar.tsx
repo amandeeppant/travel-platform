@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Bell, Wallet, Utensils, LayoutGrid, Phone, User,
-  Menu, X, ChevronDown, Zap, Shield, Gift, Headphones,
+  Menu, X, ChevronDown, Zap, Gift,
   Train, Plane, Bus, Hotel, Map, Star, LayoutDashboard
 } from "lucide-react";
 import { useAuthUser, getPortalRouteForUser } from "@/lib/authClient";
@@ -54,6 +54,14 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
   }, [servicesOpen]);
 
   const isLight = forceLight || scrolled;
+
+  const handleOffersClick = () => {
+    const target = document.getElementById("offers-section");
+    if (!target) return;
+
+    const y = target.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -328,13 +336,12 @@ export default function Navbar({ forceLight = false }: { forceLight?: boolean })
               style={{ display: "flex", alignItems: "center", gap: "8px" }}
             >
               {[
-                { icon: <Shield size={13} />, text: "Secure" },
                 { icon: <Gift size={13} />, text: "Offers" },
-                { icon: <Headphones size={13} />, text: "Support" },
               ].map((perk) => (
                 <motion.button
                   key={perk.text}
                   whileHover={{ y: -1 }}
+                  onClick={perk.text === "Offers" ? handleOffersClick : undefined}
                   style={{
                     display: "flex",
                     alignItems: "center",

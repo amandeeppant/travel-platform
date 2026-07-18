@@ -464,10 +464,8 @@ export default function Hero() {
           }}
         >
           {[
-            { icon: "🔒", text: "100% Secure Payments" },
             { icon: "⚡", text: "Instant Confirmation" },
             { icon: "💰", text: "Best Price Guaranteed" },
-            { icon: "🎧", text: "24/7 Customer Support" },
           ].map((item) => (
             <div
               key={item.text}
