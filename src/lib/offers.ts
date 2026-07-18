@@ -99,15 +99,19 @@ export async function listOffers(options: { includeInactive?: boolean } = {}) {
   const prisma = await getPrismaClient();
   const offerModel = (prisma as any)?.offer;
   if (offerModel && typeof offerModel.findMany === "function") {
-    const offers = await offerModel.findMany({
-      where: options.includeInactive ? {} : { isActive: true },
-      orderBy: { createdAt: "desc" },
-    });
-    return offers.map((offer: any) => ({
-      ...offer,
-      createdAt: normalizeTimestamp(offer.createdAt),
-      updatedAt: normalizeTimestamp(offer.updatedAt),
-    })) as OfferRecord[];
+    try {
+      const offers = await offerModel.findMany({
+        where: options.includeInactive ? {} : { isActive: true },
+        orderBy: { createdAt: "desc" },
+      });
+      return offers.map((offer: any) => ({
+        ...offer,
+        createdAt: normalizeTimestamp(offer.createdAt),
+        updatedAt: normalizeTimestamp(offer.updatedAt),
+      })) as OfferRecord[];
+    } catch (err) {
+      console.error("Prisma listOffers failed, falling back to file store:", err);
+    }
   }
 
   const offers = await readStore();
@@ -119,17 +123,21 @@ export async function createOffer(input: OfferInput) {
   const prisma = await getPrismaClient();
   const offerModel = (prisma as any)?.offer;
   if (offerModel && typeof offerModel.findUnique === "function" && typeof offerModel.create === "function") {
-    const existing = await offerModel.findUnique({ where: { couponCode: normalized.couponCode } });
-    if (existing) {
-      throw new Error("A coupon with this code already exists.");
-    }
+    try {
+      const existing = await offerModel.findUnique({ where: { couponCode: normalized.couponCode } });
+      if (existing) {
+        throw new Error("A coupon with this code already exists.");
+      }
 
-    const created = await offerModel.create({ data: normalized });
-    return {
-      ...created,
-      createdAt: normalizeTimestamp(created.createdAt),
-      updatedAt: normalizeTimestamp(created.updatedAt),
-    } as OfferRecord;
+      const created = await offerModel.create({ data: normalized });
+      return {
+        ...created,
+        createdAt: normalizeTimestamp(created.createdAt),
+        updatedAt: normalizeTimestamp(created.updatedAt),
+      } as OfferRecord;
+    } catch (err) {
+      console.error("Prisma createOffer failed, falling back to file store:", err);
+    }
   }
 
   const offers = await readStore();
@@ -153,17 +161,21 @@ export async function updateOffer(id: string, input: OfferInput) {
   const prisma = await getPrismaClient();
   const offerModel = (prisma as any)?.offer;
   if (offerModel && typeof offerModel.findUnique === "function" && typeof offerModel.update === "function") {
-    const existing = await offerModel.findUnique({ where: { couponCode: normalized.couponCode } });
-    if (existing && existing.id !== id) {
-      throw new Error("A coupon with this code already exists.");
-    }
+    try {
+      const existing = await offerModel.findUnique({ where: { couponCode: normalized.couponCode } });
+      if (existing && existing.id !== id) {
+        throw new Error("A coupon with this code already exists.");
+      }
 
-    const updated = await offerModel.update({ where: { id }, data: normalized });
-    return {
-      ...updated,
-      createdAt: normalizeTimestamp(updated.createdAt),
-      updatedAt: normalizeTimestamp(updated.updatedAt),
-    } as OfferRecord;
+      const updated = await offerModel.update({ where: { id }, data: normalized });
+      return {
+        ...updated,
+        createdAt: normalizeTimestamp(updated.createdAt),
+        updatedAt: normalizeTimestamp(updated.updatedAt),
+      } as OfferRecord;
+    } catch (err) {
+      console.error("Prisma updateOffer failed, falling back to file store:", err);
+    }
   }
 
   const offers = await readStore();
@@ -190,7 +202,11 @@ export async function deleteOffer(id: string) {
   const prisma = await getPrismaClient();
   const offerModel = (prisma as any)?.offer;
   if (offerModel && typeof offerModel.delete === "function") {
-    return offerModel.delete({ where: { id } });
+    try {
+      return await offerModel.delete({ where: { id } });
+    } catch (err) {
+      console.error("Prisma deleteOffer failed, falling back to file store:", err);
+    }
   }
 
   const offers = await readStore();

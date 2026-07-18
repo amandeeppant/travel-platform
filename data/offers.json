@@ -1,5 +1,27 @@
 [
   {
+    "id": "6e17b0b8-0c0f-41b8-870b-a0e30c76d950",
+    "percentOff": null,
+    "note": "sfsfsf",
+    "couponCode": "232",
+    "validity": "dfd",
+    "lives": 10,
+    "isActive": true,
+    "createdAt": "2026-07-18T18:45:13.247Z",
+    "updatedAt": "2026-07-18T18:45:13.247Z"
+  },
+  {
+    "id": "a65f72bb-8f19-4a20-aa31-465ee0bed3b0",
+    "percentOff": null,
+    "note": "Flat 50% Off",
+    "couponCode": "FLAT50",
+    "validity": "31 August 2026",
+    "lives": 25,
+    "isActive": true,
+    "createdAt": "2026-07-18T18:42:38.591Z",
+    "updatedAt": "2026-07-18T18:42:38.591Z"
+  },
+  {
     "id": "c037b219-5232-4419-962e-a3b4875b3e3b",
     "percentOff": null,
     "note": "fhfb",
