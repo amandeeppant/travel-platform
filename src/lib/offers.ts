@@ -24,6 +24,8 @@ export type OfferRecord = {
 };
 
 const storePath = path.resolve(process.cwd(), "data", "offers.json");
+const tmpStorePath = path.resolve(process.platform === "win32" ? process.cwd() : "/tmp", "data", "offers.json");
+let inMemoryOffers: OfferRecord[] | null = null;
 
 async function readStore(): Promise<OfferRecord[]> {
   try {
@@ -31,13 +33,41 @@ async function readStore(): Promise<OfferRecord[]> {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
   } catch {
-    return [];
+    // If file read fails, try tmp store (serverless writable) then in-memory cache
+    try {
+      const rawTmp = await fs.readFile(tmpStorePath, "utf8");
+      const parsedTmp = JSON.parse(rawTmp);
+      return Array.isArray(parsedTmp) ? parsedTmp : [];
+    } catch {
+      return inMemoryOffers ? [...inMemoryOffers] : [];
+    }
   }
 }
 
 async function writeStore(offers: OfferRecord[]) {
-  await fs.mkdir(path.dirname(storePath), { recursive: true });
-  await fs.writeFile(storePath, JSON.stringify(offers, null, 2), "utf8");
+  // Try writing to project data folder. If filesystem is read-only (EROFS),
+  // attempt to write to /tmp (serverless), else keep data in-memory as a fallback.
+  const payload = JSON.stringify(offers, null, 2);
+  try {
+    await fs.mkdir(path.dirname(storePath), { recursive: true });
+    await fs.writeFile(storePath, payload, "utf8");
+    // keep in-memory in sync
+    inMemoryOffers = [...offers];
+    return;
+  } catch (err: any) {
+    console.warn("writeStore: failed to write to storePath, attempting tmp or in-memory fallback:", err && err.code);
+  }
+
+  try {
+    await fs.mkdir(path.dirname(tmpStorePath), { recursive: true });
+    await fs.writeFile(tmpStorePath, payload, "utf8");
+    inMemoryOffers = [...offers];
+    return;
+  } catch (err: any) {
+    console.warn("writeStore: failed to write to tmpStorePath, falling back to in-memory store:", err && err.code);
+    inMemoryOffers = [...offers];
+    return;
+  }
 }
 
 async function getPrismaClient() {
