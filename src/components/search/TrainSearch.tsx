@@ -22,7 +22,7 @@ export default function TrainSearch() {
 
   return (
     <div>
-      <div className="search-shell train-search-row" style={{ alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+      <div className="search-shell train-search-row" style={{ alignItems: "flex-end", gap: "12px", flexWrap: "wrap" }}>
 
         {/* FROM */}
         <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
@@ -75,7 +75,10 @@ export default function TrainSearch() {
           ))}
         </div>
 
-        {/* Search */}
+      </div>
+
+      {/* Search */}
+      <div style={{ marginTop: 12, display: "flex", justifyContent: "center" }}>
         <button
           onClick={handleSearch}
           className="search-action"

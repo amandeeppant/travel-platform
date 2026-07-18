@@ -37,7 +37,7 @@ export default function FlightSearch() {
       </div>
 
       {/* Fields */}
-      <div className="search-shell" style={{ alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+      <div className="search-shell" style={{ alignItems: "flex-end", gap: "12px", flexWrap: "wrap" }}>
         <div className="search-field w-full sm:min-w-[160px] sm:flex-1">
           <label>FROM</label>
           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -101,6 +101,9 @@ export default function FlightSearch() {
           </div>
         </div>
 
+      </div>
+
+      <div style={{ marginTop: 12, display: "flex", justifyContent: "center" }}>
         <button
           className="search-action"
           style={{
