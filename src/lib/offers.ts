@@ -66,9 +66,8 @@ export function normalizeOfferInput(input: OfferInput) {
   const couponCode = typeof input.couponCode === "string" ? input.couponCode.trim().toUpperCase() : "";
   const validity = typeof input.validity === "string" ? input.validity.trim() : "";
 
-  if (!Number.isFinite(percentOff) || percentOff < 0 || percentOff > 100) {
-    throw new Error("Percent off must be between 0 and 100.");
-  }
+  // Off Type changed from percentage — remove strict 0-100 percent validation.
+  // Accept whatever `percentOff` value is provided (caller/UI now controls validity).
   if (!note) {
     throw new Error("A note is required.");
   }

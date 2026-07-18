@@ -398,6 +398,39 @@ Prisma ORM query:
         status: "pending"
       }
     })
+
+---
+
+## 8. Changes / Changelog (Up to July 19, 2026)
+
+- **Database & Migrations:** PostgreSQL migration applied; Prisma migration files present under `prisma/migrations/`; `schema.postgres.prisma`, `seed.js`, and `checkSeed.js` added to support production data seeding and verification.
+
+- **Authentication & Security:** JWT-based auth implemented (`src/lib/auth.ts`, `src/lib/authClient.ts`) with password hashing via `bcryptjs`. Rate limiting utilities added (`src/lib/rateLimiter.ts`) and tested (`rateLimiter.test.ts`).
+
+- **API Routes:** REST endpoints implemented under `src/app/api/` for `login`, `register`, `bookings`, `users`, `visa`, `offers`, and search endpoints for `flights`, `hotels`, `trains`, `activities`, `packages`. Role-scoped routes for hotel partner and admin areas exist.
+
+- **Portal & Pages:** Full portal scaffolding for six roles added under `src/app/portal/` with `PortalShell.tsx` providing auth checks, role redirects, sidebar navigation, and shared topbar.
+
+- **UI Components:** Core components added and/or improved: `Navbar` (Contact modal), `Hero`, `HotelCards`, `OffersSection`, `PopularDestinations`, `TrainResults`, portal widgets, and search components (`FlightSearch`, `HotelSearch`, `TrainSearch`, `BusSearch`). Accessibility and layout refinements applied to header and portal shell.
+
+- **Integrations:** IRCTC integration helper (`src/lib/irctc.ts`) for train data; external offers data stored under `data/offers.json` with API support.
+
+- **Developer Tooling & Tests:** `vitest.config.ts`, unit tests (`validators.test.ts`, `rateLimiter.test.ts`), ESLint and PostCSS configs, and helpful debug scripts (`debug-prisma.js`, `debug-prisma2.js`, `check-db.js`).
+
+- **Improvements Noted:**
+    - Switched production DB to PostgreSQL and added seed/migration safety checks.
+    - Hardened authentication flows (bcrypt salt rounds, JWT signing/verification). 
+    - Added rate-limiter to public endpoints to reduce abuse risk.
+    - Improved portal UX with role-aware redirects and a persistent contact modal for faster support access.
+    - Introduced structured testing with Vitest for core lib utilities.
+
+---
+
+## 9. Notes & Next Steps
+
+- For a precise, commit-level changelog (authors, timestamps, exact diffs), run `git log --name-status --since="2026-01-01"` or provide access to the repository's git history and I can extract a complete diff-based report.
+- Consider adding CHANGELOG.md and CI checks to automatically document and validate future changes.
+
     ↓
 PostgreSQL INSERT into Booking table
     ↓

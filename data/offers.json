@@ -1,5 +1,16 @@
 [
   {
+    "id": "c037b219-5232-4419-962e-a3b4875b3e3b",
+    "percentOff": null,
+    "note": "fhfb",
+    "couponCode": "DFDFFDF",
+    "validity": "31213",
+    "lives": 10,
+    "isActive": true,
+    "createdAt": "2026-07-18T18:38:42.683Z",
+    "updatedAt": "2026-07-18T18:38:42.683Z"
+  },
+  {
     "id": "e8ed1b7e-563b-4b39-9db6-dade46fa1615",
     "percentOff": 90,
     "note": "Everyplace",
