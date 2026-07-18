@@ -28,19 +28,25 @@ const tmpStorePath = path.resolve(process.platform === "win32" ? process.cwd() :
 let inMemoryOffers: OfferRecord[] | null = null;
 
 async function readStore(): Promise<OfferRecord[]> {
+  // Prefer tmp store (writable in many serverless environments) or in-memory when available.
+  if (inMemoryOffers) {
+    return [...inMemoryOffers];
+  }
+
+  try {
+    const rawTmp = await fs.readFile(tmpStorePath, "utf8");
+    const parsedTmp = JSON.parse(rawTmp);
+    return Array.isArray(parsedTmp) ? parsedTmp : [];
+  } catch {
+    // fall through to project file
+  }
+
   try {
     const raw = await fs.readFile(storePath, "utf8");
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
   } catch {
-    // If file read fails, try tmp store (serverless writable) then in-memory cache
-    try {
-      const rawTmp = await fs.readFile(tmpStorePath, "utf8");
-      const parsedTmp = JSON.parse(rawTmp);
-      return Array.isArray(parsedTmp) ? parsedTmp : [];
-    } catch {
-      return inMemoryOffers ? [...inMemoryOffers] : [];
-    }
+    return [];
   }
 }
 
