@@ -51,15 +51,29 @@ class TrainRepository {
 
     try {
       // Try code first
+      // Exact code match (case-sensitive first)
       let station = await prisma.station.findUnique({
         where: { code: codeOrName },
       });
 
       if (station) return station;
 
-      // Try name
+      // Exact name match
       station = await prisma.station.findUnique({
         where: { name: codeOrName },
+      });
+
+      if (station) return station;
+
+      // Try case-insensitive or partial matches using findFirst
+      station = await prisma.station.findFirst({
+        where: {
+          OR: [
+            { code: { equals: codeOrName, mode: 'insensitive' } },
+            { name: { equals: codeOrName, mode: 'insensitive' } },
+            { name: { contains: codeOrName, mode: 'insensitive' } },
+          ],
+        },
       });
 
       return station;
