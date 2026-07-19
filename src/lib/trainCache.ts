@@ -20,6 +20,10 @@ class TrainCacheService {
   };
 
   private loadingPromise: Promise<void> | null = null;
+  private datasetPathUsed: string | null = null;
+  private datasetFileSize: number | null = null;
+  private parseDurationMs: number | null = null;
+  private recordsLoaded: number | null = null;
 
   /**
    * Initialize cache from JSON file
@@ -69,19 +73,28 @@ class TrainCacheService {
       const processedTrains = this._processRecords(records);
       this._populateCache(processedTrains);
 
+      const duration = Date.now() - startTime;
+      this.parseDurationMs = duration;
+      this.recordsLoaded = records.length;
+      this.datasetPathUsed = scheduleFilePath;
+      this.datasetFileSize = fs.statSync(scheduleFilePath).size;
+
       // Debug: log station count and sample
       try {
         const stationCount = this.cache.stations.size;
         const sample = Array.from(this.cache.stations.values()).slice(0, 5).map((s) => s.name);
-        logger.info('Cache debug', { stationCount, sample });
+        logger.info('Cache loaded successfully', {
+          datasetPath: scheduleFilePath,
+          datasetSizeBytes: this.datasetFileSize,
+          parseDurationMs: duration,
+          recordsLoaded: records.length,
+          stationCount,
+          trainCount: this.cache.trains.size,
+          sample,
+        });
       } catch (e) {
         logger.warn('Failed to produce cache debug info', { error: e });
       }
-
-      const duration = Date.now() - startTime;
-      logger.info(
-        `Cache loaded successfully in ${duration}ms: ${this.cache.stations.size} stations, ${this.cache.trains.size} trains`
-      );
 
       this.cache.lastLoadTime = new Date();
       this.cache.isLoaded = true;
@@ -297,6 +310,10 @@ class TrainCacheService {
       stationCount: this.cache.stations.size,
       trainCount: this.cache.trains.size,
       trainStopsCount: Array.from(this.cache.trainStops.values()).reduce((sum, stops) => sum + stops.length, 0),
+      datasetPathUsed: this.datasetPathUsed,
+      datasetFileSize: this.datasetFileSize,
+      parseDurationMs: this.parseDurationMs,
+      recordsLoaded: this.recordsLoaded,
     };
   }
 
