@@ -76,7 +76,20 @@ class TrainRepository {
         },
       });
 
-      return station;
+      if (station) return station;
+
+      // If DB is healthy but the station wasn't found, try the in-memory cache
+      // This covers production cases where DATABASE_URL points to an empty DB
+      // while the JSON dataset is available in the deployment.
+      try {
+        await trainCache.initialize();
+        const cached = trainCache.getStation(codeOrName);
+        if (cached) return cached;
+      } catch (e) {
+        logger.warn('Failed to load cache after DB lookup returned nothing', { error: e });
+      }
+
+      return null;
     } catch (error) {
       logger.warn('Database query failed, falling back to cache', { error });
       this.dbConfig.useDatabase = false;
@@ -103,6 +116,17 @@ class TrainRepository {
         },
         take: 10,
       });
+
+      if (stations && stations.length > 0) return stations;
+
+      // If DB returned no results, fall back to cache (covers empty DB in prod)
+      try {
+        await trainCache.initialize();
+        const cached = trainCache.findStations(query);
+        if (cached && cached.length > 0) return cached;
+      } catch (e) {
+        logger.warn('Failed to load cache after empty DB stations result', { error: e });
+      }
 
       return stations;
     } catch (error) {
