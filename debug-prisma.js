@@ -26,12 +26,12 @@ console.log({
   fileUrl,
 });
 
-const prisma = new PrismaClient({ datasources: { db: { url: fileUrl } } });
-prisma
+const prismaClient = new PrismaClient({ datasources: { db: { url: fileUrl } } });
+prismaClient
   .$connect()
   .then(() => {
     console.log('prisma connected');
-    return prisma.$disconnect();
+    return prismaClient.$disconnect();
   })
   .catch((err) => {
     console.error('prisma error', err);

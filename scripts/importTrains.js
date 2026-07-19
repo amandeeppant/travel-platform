@@ -11,7 +11,7 @@ const readline = require('readline');
 
 // Simple Prisma client setup
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function importTrainSchedules() {
   console.log('🚂 Starting train schedules import...');
@@ -120,7 +120,7 @@ async function importTrainSchedules() {
     }
 
     // Insert into database in a transaction
-    await prisma.$transaction(async (tx) => {
+    await prismaClient.$transaction(async (tx) => {
       // Delete existing data
       await tx.trainStop.deleteMany();
       await tx.train.deleteMany();
@@ -182,7 +182,7 @@ async function importTrainSchedules() {
     console.error(error instanceof Error ? error.message : String(error));
     throw error;
   } finally {
-    await prisma.$disconnect();
+    await prismaClient.$disconnect();
   }
 }
 

@@ -1,16 +1,16 @@
 const { PrismaClient } = require('@prisma/client');
 (async () => {
-  const p = new PrismaClient();
+  const pClient = new PrismaClient();
   try {
-    const h = await p.hotel.count();
-    const f = await p.flight.count();
-    const pkg = await p.package.count();
-    const a = await p.activity.count();
-    const v = await p.visa.count();
+    const h = await pClient.hotel.count();
+    const f = await pClient.flight.count();
+    const pkg = await pClient.package.count();
+    const a = await pClient.activity.count();
+    const v = await pClient.visa.count();
     console.log('counts', { hotels: h, flights: f, packages: pkg, activities: a, visas: v });
   } catch (e) {
     console.error(e);
   } finally {
-    await p.$disconnect();
+    await pClient.$disconnect();
   }
 })();

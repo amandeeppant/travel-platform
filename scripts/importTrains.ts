@@ -10,7 +10,7 @@ const readline = require('readline');
 
 // Simple Prisma client setup
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function importTrainSchedules() {
   console.log('🚂 Starting train schedules import...');
@@ -40,8 +40,8 @@ async function importTrainSchedules() {
     console.log(`📂 Reading from: ${schedulesPath}`);
 
     // Group records by train number
-    const trainGroups = new Map();
-    const stationSet = new Set();
+    const trainGroups = new Map(/* trainNumber -> records */);
+    const stationRecordsMap = new Map();
 
     // Read file line by line
     const fileStream = fs.createReadStream(schedulesPath);
@@ -83,12 +83,12 @@ async function importTrainSchedules() {
     console.log(`📊 Read ${stats.totalRecordsRead.toLocaleString()} records`);
 
     // Process records: sort by id within each train
-    const processedTrains = [];
-    const processedStops = [];
+    const processedTrains: any[] = [];
+    const processedStops: any[] = [];
 
     for (const [trainNumber, records] of trainGroups.entries()) {
       // Sort by id ascending to get correct sequence
-      records.sort((a, b) => a.id - b.id);
+      (records as any[]).sort((a: any, b: any) => a.id - b.id);
 
       const firstRecord = records[0];
       const lastRecord = records[records.length - 1];
@@ -101,7 +101,7 @@ async function importTrainSchedules() {
         totalStops: records.length,
       });
 
-      records.forEach((record, idx) => {
+      (records as any[]).forEach((record: any, idx: number) => {
         processedStops.push({
           trainNumber,
           stationCode: record.station_code,
@@ -114,7 +114,7 @@ async function importTrainSchedules() {
     }
 
     // Insert into database in a transaction
-    await prisma.$transaction(async (tx) => {
+    await prismaClient.$transaction(async (tx: any) => {
       // Delete existing data
       await tx.trainStop.deleteMany();
       await tx.train.deleteMany();
@@ -174,7 +174,7 @@ async function importTrainSchedules() {
     console.error(error instanceof Error ? error.message : String(error));
     throw error;
   } finally {
-    await prisma.$disconnect();
+    await prismaClient.$disconnect();
   }
 }
 

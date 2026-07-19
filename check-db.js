@@ -1,8 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function main() {
-  const hotels = await prisma.hotel.findMany({
+  const hotels = await prismaClient.hotel.findMany({
     include: { rooms: true }
   });
   console.log("Found hotels in database:", JSON.stringify(hotels.map(h => ({
@@ -17,4 +17,4 @@ async function main() {
 
 main()
   .catch(console.error)
-  .finally(() => prisma.$disconnect());
+  .finally(() => prismaClient.$disconnect());

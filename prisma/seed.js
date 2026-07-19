@@ -1,9 +1,9 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcryptjs");
-const prisma = new PrismaClient();
+const prismaClient = new PrismaClient();
 
 async function main() {
-  await prisma.hotel.createMany({
+  await prismaClient.hotel.createMany({
     data: [
       {
         name: "The Leela Goa",
@@ -35,7 +35,7 @@ async function main() {
     ],
   });
 
-  await prisma.flight.createMany({
+  await prismaClient.flight.createMany({
     data: [
       {
         airline: "Air India",
@@ -70,7 +70,7 @@ async function main() {
     ],
   });
 
-  await prisma.package.createMany({
+  await prismaClient.package.createMany({
     data: [
       {
         name: "Goa Beach Escape",
@@ -93,7 +93,7 @@ async function main() {
     ],
   });
 
-  await prisma.activity.createMany({
+  await prismaClient.activity.createMany({
     data: [
       {
         name: "Scuba Diving",
@@ -116,7 +116,7 @@ async function main() {
     ],
   });
 
-  await prisma.visa.createMany({
+  await prismaClient.visa.createMany({
     data: [
       {
         country: "Canada",
@@ -146,7 +146,7 @@ async function main() {
   const adminPassword = process.env.SEED_ADMIN_PASSWORD;
   if (adminPassword) {
     const hashed = bcrypt.hashSync(adminPassword, 10);
-    const existing = await prisma.user.findUnique({ where: { email: adminEmail } });
+    const existing = await prismaClient.user.findUnique({ where: { email: adminEmail } });
     if (!existing) {
       await prisma.user.create({
         data: {
@@ -173,5 +173,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await prismaClient.$disconnect();
   });
