@@ -183,3 +183,61 @@ model Offer {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+// ============================================
+// TRAIN SEARCH MODELS
+// ============================================
+
+model Station {
+  code             String   @id
+  name             String   @unique
+  createdAt        DateTime @default(now())
+  
+  // Relations
+  trainsAsSource   Train[]   @relation("SourceStation")
+  trainsAsDestination Train[] @relation("DestinationStation")
+  trainStops       TrainStop[]
+  
+  @@index([name])
+}
+
+model Train {
+  trainNumber      String   @id
+  trainName        String
+  totalStops       Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  // Relations
+  sourceStation    Station   @relation("SourceStation", fields: [sourceStationCode], references: [code])
+  sourceStationCode String
+  
+  destinationStation Station @relation("DestinationStation", fields: [destinationStationCode], references: [code])
+  destinationStationCode String
+  
+  trainStops       TrainStop[]
+  
+  @@index([sourceStationCode])
+  @@index([destinationStationCode])
+  @@index([trainName])
+}
+
+model TrainStop {
+  id               String   @id @default(cuid())
+  trainNumber      String
+  stationCode      String
+  stopSequence     Int
+  arrival          String?  // HH:MM:SS or "None"
+  departure        String?  // HH:MM:SS or "None"
+  day              Int      // 1, 2, 3 for multiday journeys
+  createdAt        DateTime @default(now())
+  
+  // Relations
+  train            Train    @relation(fields: [trainNumber], references: [trainNumber], onDelete: Cascade)
+  station          Station  @relation(fields: [stationCode], references: [code], onDelete: Cascade)
+  
+  @@unique([trainNumber, stopSequence])
+  @@index([trainNumber])
+  @@index([stationCode])
+  @@index([trainNumber, stationCode])
+}

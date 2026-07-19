@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "5772efd9-0dc0-48d7-b376-09a9e5c12952",
+    "percentOff": null,
+    "note": "FLAT 50% OFF",
+    "couponCode": "FLAT50",
+    "validity": "31 AUGUST 2026",
+    "lives": 10,
+    "isActive": true,
+    "createdAt": "2026-07-18T19:05:28.092Z",
+    "updatedAt": "2026-07-18T19:05:28.092Z"
+  }
+]
