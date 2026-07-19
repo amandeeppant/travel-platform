@@ -56,6 +56,7 @@ class TrainCacheService {
       }
 
       logger.info(`Loading train schedules from JSON (${scheduleFilePath})...`);
+      logger.info('Schedule file resolved', { path: scheduleFilePath, exists: fs.existsSync(scheduleFilePath) });
       const startTime = Date.now();
 
       // Read file and parse as JSON array
@@ -67,6 +68,15 @@ class TrainCacheService {
       // Process records
       const processedTrains = this._processRecords(records);
       this._populateCache(processedTrains);
+
+      // Debug: log station count and sample
+      try {
+        const stationCount = this.cache.stations.size;
+        const sample = Array.from(this.cache.stations.values()).slice(0, 5).map((s) => s.name);
+        logger.info('Cache debug', { stationCount, sample });
+      } catch (e) {
+        logger.warn('Failed to produce cache debug info', { error: e });
+      }
 
       const duration = Date.now() - startTime;
       logger.info(
