@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -8,11 +8,11 @@ import * as path from 'path';
  * This avoids DB/prisma imports and serves as a reliable fallback in dev.
  */
 export async function GET(
-  request: Request,
-  { params }: { params: { trainNumber: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ trainNumber: string }> }
 ) {
   try {
-    const { trainNumber } = params;
+    const { trainNumber } = await params;
 
     if (!trainNumber) {
       return NextResponse.json({ success: false, error: { message: 'Train number required' } }, { status: 400 });
